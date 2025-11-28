@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\GenerateImageJob;
 use App\Models\Schedule;
 use App\Models\ScheduleExecutionLog;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
 
 class CheckScheduledImages extends Command
@@ -30,8 +31,18 @@ class CheckScheduledImages extends Command
             'sat' => 'sat',
         };
 
+        $driver = DB::connection()->getDriverName();
+
+        if ($driver === 'pgsql') {
+            $timeExpression = "to_char(time, 'HH24:MI')";
+        } elseif ($driver === 'sqlite') {
+            $timeExpression = "strftime('%H:%M', time)";
+        } else {
+            return;
+        }
+
         $schedules = Schedule::where('is_active', true)
-            ->whereRaw("strftime('%H:%M', time) <= ?", [$currentTime])
+            ->whereRaw("{$timeExpression} <= ?", [$currentTime])
             ->get();
 
         \Log::info('Found '.$schedules->count().' active schedules to check for execution.');
