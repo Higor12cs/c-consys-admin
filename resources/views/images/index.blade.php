@@ -62,10 +62,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-    @vite(['resources/css/image.css'])
+    {{-- @vite(['resources/css/image.css']) --}}
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="font-sans antialiased bg-white">
+<body class="font-sans antialiased bg-white" style="font-family: 'Inter', sans-serif;">
     <div class="flex flex-col m-4">
         <div class="flex justify-between items-center flex-shrink-0 bg-gray-900 text-gray-100 p-4 mb-4">
             <div class="text-lg font-semibold">
