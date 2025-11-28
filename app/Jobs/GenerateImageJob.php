@@ -18,7 +18,8 @@ class GenerateImageJob implements ShouldQueue
         public Image $image,
         public int $scheduleId,
         public array $destinations
-    ) {}
+    ) {
+    }
 
     public function handle(IndicatorService $indicatorService): void
     {
@@ -36,15 +37,22 @@ class GenerateImageJob implements ShouldQueue
                 'grid' => $grid,
             ])->render();
 
-            $tempPath = storage_path('app/temp_'.uniqid().'.html');
+            $tempPath = storage_path('app/temp_' . uniqid() . '.html');
             file_put_contents($tempPath, $html);
 
-            $imageData = Browsershot::html($html)
+            $browsershot = Browsershot::html($html)
                 ->windowSize(1300, 0)
                 ->deviceScaleFactor(2)
                 ->fullPage()
-                ->setOption('args', ['--disable-web-security'])
-                ->screenshot();
+                ->setOption('args', ['--disable-web-security']);
+
+            if (config('app.env') === 'production') {
+                $browsershot->setNodeBinary('/usr/bin/node')
+                    ->setNpmBinary('/usr/bin/npm')
+                    ->noSandbox();
+            }
+
+            $imageData = $browsershot->screenshot();
 
             @unlink($tempPath);
 
@@ -70,7 +78,7 @@ class GenerateImageJob implements ShouldQueue
             Notification::create([
                 'type' => 'error',
                 'title' => 'Erro ao Gerar Imagem',
-                'message' => 'Falha ao gerar imagem: '.$this->image->name,
+                'message' => 'Falha ao gerar imagem: ' . $this->image->name,
                 'context' => [
                     'image_id' => $this->image->id,
                     'schedule_id' => $this->scheduleId,
