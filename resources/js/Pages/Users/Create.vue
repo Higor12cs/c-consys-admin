@@ -1,0 +1,137 @@
+<script setup>
+import AppLayout from "@/Layouts/AppLayout.vue";
+import { Head, Form, Link } from "@inertiajs/vue3";
+import { ArrowLeft, Save } from "lucide-vue-next";
+</script>
+
+<template>
+    <Head title="Novo Usuário" />
+    <AppLayout>
+        <div class="d-flex justify-content-between mb-3">
+            <h1 class="h4">Novo Usuário</h1>
+            <Link :href="route('users.index')" class="btn btn-secondary">
+                <ArrowLeft :size="18" class="me-1" />
+                Voltar
+            </Link>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Criar Usuário</div>
+            <div class="card-body">
+                <Form
+                    :action="route('users.store')"
+                    method="post"
+                    disableWhileProcessing
+                    #default="{ errors, processing }"
+                >
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="name" class="form-label"
+                                    >Nome</label
+                                >
+                                <input
+                                    id="name"
+                                    name="name"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.name }"
+                                />
+                                <div
+                                    v-if="errors.name"
+                                    class="invalid-feedback"
+                                >
+                                    {{ errors.name }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="email" class="form-label"
+                                    >E-mail</label
+                                >
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.email }"
+                                />
+                                <div
+                                    v-if="errors.email"
+                                    class="invalid-feedback"
+                                >
+                                    {{ errors.email }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="password" class="form-label"
+                                    >Senha</label
+                                >
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.password }"
+                                />
+                                <div
+                                    v-if="errors.password"
+                                    class="invalid-feedback"
+                                >
+                                    {{ errors.password }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label
+                                    for="password_confirmation"
+                                    class="form-label"
+                                    >Confirmar Senha</label
+                                >
+                                <input
+                                    id="password_confirmation"
+                                    name="password_confirmation"
+                                    type="password"
+                                    class="form-control"
+                                    :class="{
+                                        'is-invalid':
+                                            errors.password_confirmation,
+                                    }"
+                                />
+                                <div
+                                    v-if="errors.password_confirmation"
+                                    class="invalid-feedback"
+                                >
+                                    {{ errors.password_confirmation }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            :disabled="processing"
+                        >
+                            <span
+                                v-if="processing"
+                                class="spinner-border spinner-border-sm me-1"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
+                            <Save :size="18" class="me-1" v-else />
+                            Criar
+                        </button>
+                    </div>
+                </Form>
+            </div>
+        </div>
+    </AppLayout>
+</template>
