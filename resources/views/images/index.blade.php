@@ -1,45 +1,49 @@
 @php
-    function formatAbbreviatedNumber($number)
-    {
-        $negative = $number < 0;
-        $abs = abs($number);
+    if (!function_exists('formatAbbreviatedNumber')) {
+        function formatAbbreviatedNumber($number)
+        {
+            $negative = $number < 0;
+            $abs = abs($number);
 
-        if ($abs < 1000) {
-            $formatted = number_format(floor($abs), 0, ',', '.');
-        } elseif ($abs < 10000) {
-            $formatted = number_format($abs / 1000, 2, ',', '.');
-            $formatted = rtrim(rtrim($formatted, '0'), ',');
-            $formatted .= 'K';
-        } elseif ($abs < 100000) {
-            $formatted = number_format($abs / 1000, 1, ',', '.');
-            $formatted = rtrim(rtrim($formatted, '0'), ',');
-            $formatted .= 'K';
-        } elseif ($abs < 1000000) {
-            $formatted = number_format(floor($abs / 1000), 0, '', '.');
-            $formatted .= 'K';
-        } else {
-            $formatted = number_format($abs / 1000000, 2, ',', '.');
-            $formatted = rtrim(rtrim($formatted, '0'), ',');
-            $formatted .= 'M';
+            if ($abs < 1000) {
+                $formatted = number_format(floor($abs), 0, ',', '.');
+            } elseif ($abs < 10000) {
+                $formatted = number_format($abs / 1000, 2, ',', '.');
+                $formatted = rtrim(rtrim($formatted, '0'), ',');
+                $formatted .= 'K';
+            } elseif ($abs < 100000) {
+                $formatted = number_format($abs / 1000, 1, ',', '.');
+                $formatted = rtrim(rtrim($formatted, '0'), ',');
+                $formatted .= 'K';
+            } elseif ($abs < 1000000) {
+                $formatted = number_format(floor($abs / 1000), 0, '', '.');
+                $formatted .= 'K';
+            } else {
+                $formatted = number_format($abs / 1000000, 2, ',', '.');
+                $formatted = rtrim(rtrim($formatted, '0'), ',');
+                $formatted .= 'M';
+            }
+
+            return $negative ? '-' . $formatted : $formatted;
         }
-
-        return $negative ? '-' . $formatted : $formatted;
     }
 
-    function formatPercentage($number)
-    {
-        $negative = $number < 0;
-        $abs = abs($number);
+    if (!function_exists('formatPercentage')) {
+        function formatPercentage($number)
+        {
+            $negative = $number < 0;
+            $abs = abs($number);
 
-        if ($abs >= 100) {
-            $formatted = number_format($abs, 0, ',', '.') . '%';
-        } elseif ($abs >= 10) {
-            $formatted = number_format($abs, 1, ',', '.') . '%';
-        } else {
-            $formatted = number_format($abs, 2, ',', '.') . '%';
+            if ($abs >= 100) {
+                $formatted = number_format($abs, 0, ',', '.') . '%';
+            } elseif ($abs >= 10) {
+                $formatted = number_format($abs, 1, ',', '.') . '%';
+            } else {
+                $formatted = number_format($abs, 2, ',', '.') . '%';
+            }
+
+            return $negative ? '-' . $formatted : $formatted;
         }
-
-        return $negative ? '-' . $formatted : $formatted;
     }
 @endphp
 
