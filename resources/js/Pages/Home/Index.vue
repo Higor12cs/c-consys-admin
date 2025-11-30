@@ -178,7 +178,7 @@ const props = defineProps({
                             v-if="notifications.length === 0"
                             class="text-center text-muted"
                         >
-                            Nenhuma Notificação
+                            Nenhuma notificação recente.
                         </div>
                         <div v-else>
                             <div

@@ -63,7 +63,7 @@ class ScheduleController extends Controller
 
     public function resend(Schedule $schedule)
     {
-        $images = $schedule->images()->where('is_active', true)->get();
+        $images = $schedule->images()->with('customer')->where('is_active', true)->get();
 
         foreach ($images as $image) {
             $destinations = collect($image->destinations)->map(function ($destination, $index) {
@@ -72,6 +72,8 @@ class ScheduleController extends Controller
                     'delay' => $index * 5,
                 ];
             })->toArray();
+
+            \Log::info("Resending job for Image ID: {$image->id} | Customer: {$image->customer->name} | Under Schedule ID: {$schedule->id}");
 
             GenerateImageJob::dispatch($image, $schedule->id, $destinations);
         }

@@ -5,8 +5,8 @@ namespace App\Console\Commands;
 use App\Jobs\GenerateImageJob;
 use App\Models\Schedule;
 use App\Models\ScheduleExecutionLog;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class CheckScheduledImages extends Command
 {
@@ -16,10 +16,9 @@ class CheckScheduledImages extends Command
 
     public function handle()
     {
-        $now = now();
-        $currentTime = $now->format('H:i');
+        $currentTime = now()->format('H:i');
         $currentDate = now()->toDateTimeString();
-        $dayOfWeek = strtolower($now->format('D'));
+        $dayOfWeek = strtolower(now()->format('D'));
 
         $dayColumn = match ($dayOfWeek) {
             'sun' => 'sun',
@@ -45,15 +44,14 @@ class CheckScheduledImages extends Command
             ->whereRaw("{$timeExpression} <= ?", [$currentTime])
             ->get();
 
-        \Log::info('Found '.$schedules->count().' active schedules to check for execution.');
+        \Log::info('Found '.$schedules->count()." active schedules to process at time {$currentTime}.");
 
         foreach ($schedules as $schedule) {
             $images = $schedule->images()
+                ->with('customer')
                 ->where('is_active', true)
                 ->wherePivot($dayColumn, true)
                 ->get();
-
-            \Log::info('Found '.$images->count()." active images for schedule ID: {$schedule->id} on day: {$dayColumn}");
 
             foreach ($images as $image) {
                 $alreadyExecuted = ScheduleExecutionLog::where('image_id', $image->id)
@@ -62,13 +60,13 @@ class CheckScheduledImages extends Command
                     ->where('status', 'success')
                     ->exists();
 
-                \Log::info("ScheduleExecutionLog check for image ID: {$image->id}, schedule ID: {$schedule->id}, date: {$currentDate}, already executed: ".($alreadyExecuted ? 'yes' : 'no'));
+                \Log::info("Checking Image ID: {$image->id} | Customer: {$image->customer->name} | Under Schedule ID: {$schedule->id} | Already Executed: ".($alreadyExecuted ? 'Yes' : 'No'));
 
                 if ($alreadyExecuted) {
                     continue;
                 }
 
-                \Log::info("Dispatching GenerateImageJob for image ID: {$image->id}, schedule ID: {$schedule->id}");
+                \Log::info("Dispatching job for Image ID: {$image->id} | Customer: {$image->customer->name} | Under Schedule ID: {$schedule->id}");
 
                 $destinations = collect($image->destinations)->map(function ($destination, $index) {
                     return [
@@ -77,11 +75,7 @@ class CheckScheduledImages extends Command
                     ];
                 })->toArray();
 
-                \Log::info('Dispatching GenerateImageJob with destinations: '.json_encode($destinations));
-
                 GenerateImageJob::dispatch($image, $schedule->id, $destinations);
-
-                $this->info("Scheduled image generation: {$image->name} (ID: {$image->id})");
             }
         }
 
