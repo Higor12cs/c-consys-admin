@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class IndicatorSeeder extends Seeder
@@ -132,13 +131,5 @@ class IndicatorSeeder extends Seeder
         }
 
         DB::table('indicators')->upsert($rows, ['code'], ['description', 'is_percentage', 'updated_at']);
-
-        // Warm the indicators cache so the app can use it immediately after seeding
-        $map = [];
-        $indicators = DB::table('indicators')->get();
-        foreach ($indicators as $row) {
-            $map[$row->code] = $row->description;
-        }
-        Cache::put('indicators_map', $map, 3600);
     }
 }
