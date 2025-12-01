@@ -13,6 +13,21 @@ const props = defineProps({
     notifications: { type: Array, required: false, default: () => [] },
     recentExecutionLogs: { type: Array, required: false, default: () => [] },
 });
+
+function formatDateTime(dateTimeString) {
+    if (!dateTimeString) return "-";
+
+    const [datePart, timePart] = dateTimeString.split(" ");
+    const [year, month, day] = datePart.split("-");
+
+    return `${day}/${month}/${year} ${timePart || ""}`.trim();
+}
+
+function formatDate(dateString) {
+    if (!dateString) return "-";
+    const [year, month, day] = dateString.split("-");
+    return `${day}/${month}/${year}`;
+}
 </script>
 
 <template>
@@ -191,11 +206,7 @@ const props = defineProps({
                                     {{ note.message }}
                                 </div>
                                 <div class="small text-muted">
-                                    {{
-                                        new Date(
-                                            note.created_at
-                                        ).toLocaleString()
-                                    }}
+                                    {{ formatDateTime(note.created_at) }}
                                 </div>
                             </div>
                         </div>
@@ -243,7 +254,7 @@ const props = defineProps({
                                         </div>
                                         <div class="text-end">
                                             <div class="small text-muted">
-                                                {{ log.execution_date ?? "-" }}
+                                                {{ formatDateTime(log.execution_date) ?? "-" }}
                                             </div>
                                             <div class="small">
                                                 {{ log.execution_time ?? "-" }}
