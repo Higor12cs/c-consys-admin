@@ -17,7 +17,6 @@ class CheckScheduledImages extends Command
     public function handle()
     {
         $currentTime = now()->format('H:i');
-        $currentDate = now()->toDateTimeString();
         $dayOfWeek = strtolower(now()->format('D'));
 
         $dayColumn = match ($dayOfWeek) {
@@ -44,7 +43,7 @@ class CheckScheduledImages extends Command
             ->whereRaw("{$timeExpression} <= ?", [$currentTime])
             ->get();
 
-        \Log::info('Found '.$schedules->count()." active schedules to process at time {$currentTime}.");
+        \Log::info('Found ' . $schedules->count() . " active schedules to process at time {$currentTime}.");
 
         foreach ($schedules as $schedule) {
             $images = $schedule->images()
@@ -56,11 +55,12 @@ class CheckScheduledImages extends Command
             foreach ($images as $image) {
                 $alreadyExecuted = ScheduleExecutionLog::where('image_id', $image->id)
                     ->where('schedule_id', $schedule->id)
-                    ->where('execution_date', '<=', $currentDate)
+                    ->where('execution_date', '>=', now()->startOfDay())
+                    ->where('execution_date', '<=', now())
                     ->where('status', 'success')
                     ->exists();
 
-                \Log::info("Checking Image ID: {$image->id} | Customer: {$image->customer->name} | Under Schedule ID: {$schedule->id} | Already Executed: ".($alreadyExecuted ? 'Yes' : 'No'));
+                \Log::info("Checking Image ID: {$image->id} | Customer: {$image->customer->name} | Under Schedule ID: {$schedule->id} | Already Executed: " . ($alreadyExecuted ? 'Yes' : 'No'));
 
                 if ($alreadyExecuted) {
                     continue;
