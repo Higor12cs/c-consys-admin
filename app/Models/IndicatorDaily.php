@@ -21,7 +21,7 @@ class IndicatorDaily extends Model
     ];
 
     protected $casts = [
-        'date' => 'datetime',
+        'date' => 'timestamp:Y-m-d H:i:s',
         'target' => 'decimal:2',
         'actual' => 'decimal:2',
         'direction' => 'integer',

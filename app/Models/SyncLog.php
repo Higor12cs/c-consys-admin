@@ -19,8 +19,8 @@ class SyncLog extends Model
     ];
 
     protected $casts = [
-        'sync_date' => 'datetime',
-        'last_data_date' => 'date',
+        'sync_date' => 'timestamp:Y-m-d H:i:s',
+        'last_data_date' => 'timestamp:Y-m-d H:i:s',
     ];
 
     public function customer(): BelongsTo

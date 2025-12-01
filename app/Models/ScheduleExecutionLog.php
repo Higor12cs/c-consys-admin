@@ -20,7 +20,7 @@ class ScheduleExecutionLog extends Model
     ];
 
     protected $casts = [
-        'execution_date' => 'timestamp',
+        'execution_date' => 'timestamp:Y-m-d H:i:s',
     ];
 
     public function prunable()

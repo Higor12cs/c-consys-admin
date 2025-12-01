@@ -22,7 +22,7 @@ class IndicatorMonthly extends Model
     ];
 
     protected $casts = [
-        'date' => 'datetime',
+        'date' => 'timestamp:Y-m-d H:i:s',
         'year' => 'integer',
         'month' => 'integer',
         'target' => 'decimal:2',
