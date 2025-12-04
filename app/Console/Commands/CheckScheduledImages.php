@@ -43,7 +43,7 @@ class CheckScheduledImages extends Command
             ->whereRaw("{$timeExpression} <= ?", [$currentTime])
             ->get();
 
-        \Log::info('Found ' . $schedules->count() . " active schedules to process at time {$currentTime}.");
+        \Log::info('Found '.$schedules->count()." active schedules to process at time {$currentTime}.");
 
         foreach ($schedules as $schedule) {
             $images = $schedule->images()
@@ -60,7 +60,7 @@ class CheckScheduledImages extends Command
                     ->where('status', 'success')
                     ->exists();
 
-                \Log::info("Checking Image ID: {$image->id} | Customer: {$image->customer->name} | Under Schedule ID: {$schedule->id} | Already Executed: " . ($alreadyExecuted ? 'Yes' : 'No'));
+                \Log::info("Checking Image ID: {$image->id} | Customer: {$image->customer->name} | Under Schedule ID: {$schedule->id} | Already Executed: ".($alreadyExecuted ? 'Yes' : 'No'));
 
                 if ($alreadyExecuted) {
                     continue;

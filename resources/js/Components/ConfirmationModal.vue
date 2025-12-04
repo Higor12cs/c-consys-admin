@@ -1,6 +1,5 @@
 <script setup>
 import { ref, watch } from "vue";
-import { X } from "lucide-vue-next";
 
 const props = defineProps({
     show: {
@@ -72,6 +71,7 @@ const closeModal = () => {
             <div
                 v-if="isVisible"
                 class="modal fade show d-block"
+                style="z-index: 1060"
                 tabindex="-1"
                 @click.self="handleCancel"
             >
@@ -113,6 +113,7 @@ const closeModal = () => {
             <div
                 v-if="isVisible"
                 class="modal-backdrop fade show"
+                style="z-index: 1059"
                 @click="handleCancel"
             ></div>
         </Transition>

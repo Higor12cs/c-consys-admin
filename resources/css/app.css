@@ -29,6 +29,12 @@ textarea:focus {
     outline: none !important;
 }
 
+/* Space */
+.space-x-2 {
+    display: flex;
+    gap: 0.5rem;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -64,6 +70,7 @@ samp {
     display: flex;
     flex-direction: column;
     background-color: #f3f3f3;
+    overflow: hidden;
 }
 
 #content {

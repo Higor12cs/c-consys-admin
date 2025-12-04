@@ -1,6 +1,14 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-import { LayoutDashboard, Users, Menu, Clock, House, TrendingUpDown } from "lucide-vue-next";
+import {
+    LayoutDashboard,
+    Users,
+    Menu,
+    Clock,
+    House,
+    TrendingUpDown,
+    Calendar,
+} from "lucide-vue-next";
 import { Link, usePage } from "@inertiajs/vue3";
 
 const sidebarToggled = ref(false);
@@ -16,6 +24,11 @@ const navLinks = [
         route: "customers.index",
         icon: Users,
         label: "Clientes",
+    },
+    {
+        route: "tasks.index",
+        icon: Calendar,
+        label: "Tarefas",
     },
     {
         route: "schedules.index",
