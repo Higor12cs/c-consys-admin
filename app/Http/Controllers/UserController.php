@@ -25,6 +25,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
+            'whatsapp' => 'nullable|string|max:20',
             'password' => 'required|string|min:8|confirmed',
         ], [
             'required' => 'O campo é obrigatório.',
@@ -48,6 +49,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
+            'whatsapp' => 'nullable|string|max:20',
             'password' => 'nullable|string|min:8|confirmed',
         ], [
             'required' => 'O campo é obrigatório.',
@@ -58,9 +60,12 @@ class UserController extends Controller
 
         $user->name = $validated['name'];
         $user->email = $validated['email'];
+        $user->whatsapp = $validated['whatsapp'];
+
         if (! empty($validated['password'])) {
             $user->password = $validated['password'];
         }
+
         $user->save();
 
         return to_route('users.index')->with('success', 'Usuário atualizado com sucesso!');

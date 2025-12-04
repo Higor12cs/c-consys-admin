@@ -66,7 +66,6 @@ class IndicatorService
 
     public function getMonthlySalesData(int $customerId, string $company)
     {
-        // Find the current year (max year in the database for FATURAMENTO)
         $currentYear = IndicatorMonthly::where('customer_id', $customerId)
             ->where('company', $company)
             ->where('indicator', 'FATURAMENTO')
@@ -78,7 +77,6 @@ class IndicatorService
 
         $previousYear = $currentYear - 1;
 
-        // Get all 24 months (12 from previous year + 12 from current year)
         return IndicatorMonthly::where('customer_id', $customerId)
             ->where('company', $company)
             ->where('indicator', 'FATURAMENTO')

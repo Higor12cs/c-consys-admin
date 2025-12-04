@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\NotifyTaskAssignment;
+use App\Jobs\NotifyTaskCompleted;
 use App\Models\Customer;
 use App\Models\Task;
 use App\Models\User;
@@ -57,12 +59,22 @@ class TaskController extends Controller
             $validated['completed_at'] = now();
         }
 
-        Task::create($validated);
+        $task = Task::create($validated);
 
-        return redirect()->route('tasks.index', [
+        if ($validated['created_by'] !== $validated['supervised_by']) {
+            $supervisor = User::find($validated['supervised_by']);
+            NotifyTaskAssignment::dispatch($task, $supervisor, 'supervisor');
+        }
+
+        if ($validated['created_by'] !== $validated['executed_by']) {
+            $executor = User::find($validated['executed_by']);
+            NotifyTaskAssignment::dispatch($task, $executor, 'executor');
+        }
+
+        return to_route('tasks.index', [
             'e' => $request->query('e'),
             's' => $request->query('s'),
-        ]);
+        ])->with('success', 'Tarefa criada com sucesso!');
     }
 
     public function update(Request $request, Task $task)
@@ -90,20 +102,25 @@ class TaskController extends Controller
 
         $task->update($validated);
 
-        return redirect()->route('tasks.index', [
+        if (isset($validated['status']) && $validated['status'] === 'completed' && $task->status === 'completed' && $task->supervised_by !== auth()->id()) {
+            $supervisor = User::find($task->supervised_by);
+            NotifyTaskCompleted::dispatch($task, $supervisor);
+        }
+
+        return to_route('tasks.index', [
             'e' => $request->query('e'),
             's' => $request->query('s'),
-        ]);
+        ])->with('success', 'Tarefa atualizada com sucesso!');
     }
 
     public function destroy(Request $request, Task $task)
     {
         $task->delete();
 
-        return redirect()->route('tasks.index', [
+        return to_route('tasks.index', [
             'e' => $request->query('e'),
             's' => $request->query('s'),
-        ]);
+        ])->with('success', 'Tarefa excluída com sucesso!');
     }
 
     public function finish(Request $request, Task $task)
@@ -121,9 +138,9 @@ class TaskController extends Controller
             'finished_at' => now(),
         ]);
 
-        return redirect()->route('tasks.index', [
+        return to_route('tasks.index', [
             'e' => $request->query('e'),
             's' => $request->query('s'),
-        ]);
+        ])->with('success', 'Tarefa finalizada com sucesso!');
     }
 }

@@ -1,7 +1,8 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Form, Head, Link, router } from "@inertiajs/vue3";
+import { Form, Head, Link } from "@inertiajs/vue3";
 import { ArrowLeft, Save } from "lucide-vue-next";
+
 const props = defineProps({ user: { type: Object, required: true } });
 </script>
 
@@ -65,6 +66,28 @@ const props = defineProps({ user: { type: Object, required: true } });
                                     class="invalid-feedback"
                                 >
                                     {{ errors.email }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="whatsapp" class="form-label"
+                                    >WhatsApp</label
+                                >
+                                <input
+                                    id="whatsapp"
+                                    name="whatsapp"
+                                    type="text"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.whatsapp }"
+                                    :value="user.whatsapp"
+                                />
+                                <div
+                                    v-if="errors.whatsapp"
+                                    class="invalid-feedback"
+                                >
+                                    {{ errors.whatsapp }}
                                 </div>
                             </div>
                         </div>

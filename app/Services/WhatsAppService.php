@@ -51,6 +51,50 @@ class WhatsAppService
         }
     }
 
+    public function sendText(
+        string $contactId,
+        string $message,
+        int $delayInSeconds = 0
+    ): array {
+        try {
+            $response = Http::withoutVerifying()
+                ->withHeaders([
+                    'access-token' => $this->accessToken,
+                    'Content-Type' => 'application/json',
+                ])
+                ->post($this->apiUrl.'/core/v2/api/chats/send-text', [
+                    'contactId' => $contactId,
+                    'message' => $message,
+                    'forceSend' => true,
+                    'verifyContact' => false,
+                    'delayInSeconds' => $delayInSeconds,
+                ]);
+
+            if ($response->successful()) {
+                return [
+                    'success' => true,
+                    'data' => $response->json(),
+                ];
+            }
+
+            return [
+                'success' => false,
+                'error' => $response->body(),
+                'status' => $response->status(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('WhatsApp API Error', [
+                'message' => $e->getMessage(),
+                'contact_id' => $contactId,
+            ]);
+
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+            ];
+        }
+    }
+
     public function sendImage(
         string $contactId,
         string $base64,

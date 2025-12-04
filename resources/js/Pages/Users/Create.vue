@@ -68,6 +68,27 @@ import { ArrowLeft, Save } from "lucide-vue-next";
 
                         <div class="col-12">
                             <div class="mb-3">
+                                <label for="whatsapp" class="form-label"
+                                    >WhatsApp</label
+                                >
+                                <input
+                                    id="whatsapp"
+                                    name="whatsapp"
+                                    type="text"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.whatsapp }"
+                                />
+                                <div
+                                    v-if="errors.whatsapp"
+                                    class="invalid-feedback"
+                                >
+                                    {{ errors.whatsapp }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3">
                                 <label for="password" class="form-label"
                                     >Senha</label
                                 >

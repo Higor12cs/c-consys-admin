@@ -201,7 +201,12 @@ const updateTaskStatus = (taskId, newStatus) => {
                         v-for="task in tasksByStatus[status.key]"
                         :key="task.id"
                         class="kanban-task"
-                        :class="{ 'task-overdue': isOverdue(task.due_date) }"
+                        :class="{
+                            'task-overdue':
+                                isOverdue(task.due_date) &&
+                                status.key !== 'completed' &&
+                                status.key !== 'finished',
+                        }"
                         draggable="true"
                         @dragstart="handleDragStart($event, task)"
                         @click="openEditModal(task)"
@@ -235,10 +240,14 @@ const updateTaskStatus = (taskId, newStatus) => {
                             <div v-if="task.due_date" class="task-due-date">
                                 <small
                                     :class="{
-                                        'text-danger fw-bold': isOverdue(
-                                            task.due_date
-                                        ),
-                                        'text-muted': !isOverdue(task.due_date),
+                                        'text-danger fw-bold':
+                                            isOverdue(task.due_date) &&
+                                            task.status !== 'completed' &&
+                                            task.status !== 'finished',
+                                        'text-muted':
+                                            !isOverdue(task.due_date) ||
+                                            task.status === 'completed' ||
+                                            task.status === 'finished',
                                     }"
                                 >
                                     {{ task.due_date }}
@@ -322,7 +331,7 @@ const updateTaskStatus = (taskId, newStatus) => {
     padding: 0.875rem;
     margin-bottom: 0.5rem;
     cursor: grab;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.2s, transform 0.2s;
     border: 1px solid #e5e5e5;
 }
@@ -332,12 +341,13 @@ const updateTaskStatus = (taskId, newStatus) => {
 }
 
 .kanban-task:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
 }
 
 .kanban-task.task-overdue {
-    border-left: 3px solid #dc3545;
+    background-color: #fff5f5;
+    border-color: #ff6b6b;
 }
 
 .task-header {
