@@ -2,37 +2,44 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Form, Head, Link } from "@inertiajs/vue3";
 import { ArrowLeft, Save } from "lucide-vue-next";
+
+const props = defineProps({ indicator: { type: Object, required: true } });
 </script>
 
 <template>
-    <Head title="Novo Indicador" />
+    <Head title="Editar Indicador" />
     <AppLayout>
         <div class="d-flex justify-content-between mb-3">
-            <h1 class="h4">Novo Indicador</h1>
-            <Link :href="route('indicators.index')" class="btn btn-secondary">
+            <h1 class="h4">Editar Indicador</h1>
+            <Link
+                :href="route('indicators.indicators.index')"
+                class="btn btn-secondary"
+            >
                 <ArrowLeft :size="18" class="me-1" />
                 Voltar
             </Link>
         </div>
 
         <div class="card">
-            <div class="card-header">Novo Indicador</div>
+            <div class="card-header">Editar Indicador</div>
             <div class="card-body">
                 <Form
-                    :action="route('indicators.store')"
-                    method="post"
+                    :action="
+                        route('indicators.indicators.update', {
+                            indicator: props.indicator.id,
+                        })
+                    "
+                    method="put"
+                    disableWhileProcessing
                     #default="{ errors, processing }"
                 >
                     <div class="mb-3">
                         <label class="form-label">Código</label>
                         <input
-                            name="code"
                             class="form-control"
-                            :class="{ 'is-invalid': errors.code }"
+                            :value="props.indicator.code"
+                            disabled
                         />
-                        <div v-if="errors.code" class="invalid-feedback">
-                            {{ errors.code }}
-                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -41,6 +48,7 @@ import { ArrowLeft, Save } from "lucide-vue-next";
                             name="description"
                             class="form-control"
                             :class="{ 'is-invalid': errors.description }"
+                            :value="props.indicator.description"
                         />
                         <div v-if="errors.description" class="invalid-feedback">
                             {{ errors.description }}
@@ -53,6 +61,7 @@ import { ArrowLeft, Save } from "lucide-vue-next";
                             type="checkbox"
                             class="form-check-input"
                             id="is_percentage"
+                            :checked="props.indicator.is_percentage"
                         />
                         <label class="form-check-label" for="is_percentage">
                             Porcentagem

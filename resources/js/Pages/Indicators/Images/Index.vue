@@ -2,7 +2,7 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import ConfirmationModal from "@/Components/ConfirmationModal.vue";
 import { Head, Link, router } from "@inertiajs/vue3";
-import { Plus } from "lucide-vue-next";
+import { ArrowLeft, Plus } from "lucide-vue-next";
 import DataTable from "datatables.net-vue3";
 import DataTablesCore from "datatables.net-bs5";
 import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
@@ -73,7 +73,7 @@ const openDeleteModal = (customerId) => {
 const confirmDelete = () => {
     if (imageToDelete.value) {
         router.delete(
-            route("images.destroy", {
+            route("indicators.images.destroy", {
                 image: imageToDelete.value,
             })
         );
@@ -86,7 +86,7 @@ onMounted(() => {
         if (e.target.classList.contains("edit-button")) {
             const imageId = e.target.getAttribute("data-id");
             router.visit(
-                route("images.edit", {
+                route("indicators.images.edit", {
                     image: imageId,
                 })
             );
@@ -105,10 +105,20 @@ onMounted(() => {
     <AppLayout>
         <div class="d-flex justify-content-between mb-3">
             <h1 class="h4">Imagens</h1>
-            <div>
-                <Link :href="route('images.create')" class="btn btn-primary">
+            <div class="d-flex gap-2">
+                <Link
+                    :href="route('indicators.images.create')"
+                    class="btn btn-primary"
+                >
                     <Plus :size="18" class="me-1" />
                     Novo
+                </Link>
+                <Link
+                    :href="route('indicators.index')"
+                    class="btn btn-secondary"
+                >
+                    <ArrowLeft :size="18" class="me-1" />
+                    Voltar
                 </Link>
             </div>
         </div>

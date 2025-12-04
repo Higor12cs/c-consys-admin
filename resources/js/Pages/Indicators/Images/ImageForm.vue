@@ -3,8 +3,8 @@ import { Plus, Save, GripVertical } from "lucide-vue-next";
 import { ref, onMounted } from "vue";
 import { toast } from "vue3-toastify";
 import draggable from "vuedraggable";
-import GroupListModal from "@/Pages/Images/GroupListModal.vue";
-import GroupCreateModal from "@/Pages/Images/GroupCreateModal.vue";
+import GroupListModal from "@/Pages/Indicators/Images/GroupListModal.vue";
+import GroupCreateModal from "@/Pages/Indicators/Images/GroupCreateModal.vue";
 
 const props = defineProps({
     image: {

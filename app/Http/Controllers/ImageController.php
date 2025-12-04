@@ -16,7 +16,7 @@ class ImageController extends Controller
     {
         $images = Image::with('customer')->get();
 
-        return inertia('Images/Index', compact('images'));
+        return inertia('Indicators/Images/Index', compact('images'));
     }
 
     public function create()
@@ -26,11 +26,11 @@ class ImageController extends Controller
         $chartTypes = ChartType::options();
         $destinationTypes = DestinationType::options();
         $indicators = Indicator::orderBy('code')->get()->map(function ($i) {
-            return ['value' => $i->code, 'label' => $i->code.' - '.$i->description];
+            return ['value' => $i->code, 'label' => $i->code . ' - ' . $i->description];
         })->toArray();
 
         return inertia(
-            'Images/Create',
+            'Indicators/Images/Create',
             compact('customers', 'schedules', 'chartTypes', 'destinationTypes', 'indicators')
         );
     }
@@ -83,7 +83,7 @@ class ImageController extends Controller
             'is_active' => $data['is_active'],
         ]);
 
-        if (! empty($data['schedules'])) {
+        if (!empty($data['schedules'])) {
             foreach ($data['schedules'] as $schedule) {
                 $image->schedules()->attach($schedule['schedule_id'], [
                     'sun' => $schedule['sun'] ?? false,
@@ -97,7 +97,7 @@ class ImageController extends Controller
             }
         }
 
-        return redirect()->route('images.index')->with('success', 'Imagem criada com sucesso!');
+        return redirect()->route('indicators.images.index')->with('success', 'Imagem criada com sucesso!');
     }
 
     public function edit(Image $image)
@@ -109,11 +109,11 @@ class ImageController extends Controller
         $chartTypes = ChartType::options();
         $destinationTypes = DestinationType::options();
         $indicators = Indicator::orderBy('code')->get()->map(function ($i) {
-            return ['value' => $i->code, 'label' => $i->code.' - '.$i->description];
+            return ['value' => $i->code, 'label' => $i->code . ' - ' . $i->description];
         })->toArray();
 
         return inertia(
-            'Images/Edit',
+            'Indicators/Images/Edit',
             compact('image', 'customers', 'schedules', 'chartTypes', 'destinationTypes', 'indicators')
         );
     }
@@ -168,7 +168,7 @@ class ImageController extends Controller
 
         $image->schedules()->detach();
 
-        if (! empty($data['schedules'])) {
+        if (!empty($data['schedules'])) {
             foreach ($data['schedules'] as $schedule) {
                 $image->schedules()->attach($schedule['schedule_id'], [
                     'sun' => $schedule['sun'] ?? false,
@@ -182,13 +182,13 @@ class ImageController extends Controller
             }
         }
 
-        return redirect()->route('images.index')->with('success', 'Imagem atualizada com sucesso!');
+        return redirect()->route('indicators.images.index')->with('success', 'Imagem atualizada com sucesso!');
     }
 
     public function destroy(Image $image)
     {
         $image->delete();
 
-        return redirect()->route('images.index')->with('success', 'Imagem removida com sucesso!');
+        return redirect()->route('indicators.images.index')->with('success', 'Imagem removida com sucesso!');
     }
 }

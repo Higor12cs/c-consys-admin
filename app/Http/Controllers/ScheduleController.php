@@ -12,14 +12,14 @@ class ScheduleController extends Controller
     {
         $schedules = Schedule::all();
 
-        return inertia('Schedules/Index', [
+        return inertia('Indicators/Schedules/Index', [
             'schedules' => $schedules,
         ]);
     }
 
     public function create()
     {
-        return inertia('Schedules/Create');
+        return inertia('Indicators/Schedules/Create');
     }
 
     public function store(Request $request)
@@ -34,12 +34,12 @@ class ScheduleController extends Controller
 
         Schedule::create($validated);
 
-        return to_route('schedules.index')->with('success', 'Agendamento criado com sucesso!');
+        return to_route('indicators.schedules.index')->with('success', 'Agendamento criado com sucesso!');
     }
 
     public function edit(Schedule $schedule)
     {
-        return inertia('Schedules/Edit', [
+        return inertia('Indicators/Schedules/Edit', [
             'schedule' => $schedule,
         ]);
     }
@@ -58,7 +58,7 @@ class ScheduleController extends Controller
 
         $schedule->update($validated);
 
-        return to_route('schedules.index')->with('success', 'Agendamento atualizado com sucesso!');
+        return to_route('indicators.schedules.index')->with('success', 'Agendamento atualizado com sucesso!');
     }
 
     public function resend(Schedule $schedule)
@@ -78,6 +78,6 @@ class ScheduleController extends Controller
             GenerateImageJob::dispatch($image, $schedule->id, $destinations);
         }
 
-        return to_route('schedules.index')->with('success', 'Reenvio de imagens agendado com sucesso!');
+        return to_route('indicators.schedules.index')->with('success', 'Reenvio de imagens agendado com sucesso!');
     }
 }

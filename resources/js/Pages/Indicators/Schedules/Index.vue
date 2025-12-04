@@ -32,7 +32,9 @@ const handleConfirmResend = () => {
     if (!selectedScheduleId.value) return;
     confirmLoading.value = true;
     router.post(
-        route("schedules.resend", { schedule: selectedScheduleId.value })
+        route("indicators.schedules.resend", {
+            schedule: selectedScheduleId.value,
+        })
     );
     showConfirm.value = false;
     confirmLoading.value = false;
@@ -67,7 +69,9 @@ onMounted(() => {
     document.addEventListener("click", (e) => {
         if (e.target.classList.contains("edit-button")) {
             const scheduleId = e.target.getAttribute("data-id");
-            router.visit(route("schedules.edit", { schedule: scheduleId }));
+            router.visit(
+                route("indicators.schedules.edit", { schedule: scheduleId })
+            );
         }
 
         if (e.target.classList.contains("schedule-resend-button")) {
@@ -83,10 +87,22 @@ onMounted(() => {
     <AppLayout>
         <div class="d-flex justify-content-between mb-3">
             <h1 class="h4">Agendamentos</h1>
-            <Link :href="route('schedules.create')" class="btn btn-primary">
-                <Plus :size="18" class="me-1" />
-                Novo
-            </Link>
+            <div class="d-flex gap-2">
+                <Link
+                    :href="route('indicators.schedules.create')"
+                    class="btn btn-primary"
+                >
+                    <Plus :size="18" class="me-1" />
+                    Novo
+                </Link>
+                <Link
+                    :href="route('indicators.index')"
+                    class="btn btn-secondary"
+                >
+                    <ArrowLeft :size="18" class="me-1" />
+                    Voltar
+                </Link>
+            </div>
         </div>
 
         <div class="card">

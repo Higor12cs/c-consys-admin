@@ -31,19 +31,9 @@ const navLinks = [
         label: "Tarefas",
     },
     {
-        route: "schedules.index",
-        icon: Clock,
-        label: "Agendamentos",
-    },
-    {
         route: "indicators.index",
         icon: TrendingUpDown,
         label: "Indicadores",
-    },
-    {
-        route: "images.index",
-        icon: LayoutDashboard,
-        label: "Imagens",
     },
     {
         route: "users.index",

@@ -12,14 +12,14 @@ class IndicatorController extends Controller
     {
         $indicators = Indicator::orderBy('code')->get();
 
-        return inertia('Indicators/Index', [
+        return inertia('Indicators/Indicators/Index', [
             'indicators' => $indicators,
         ]);
     }
 
     public function create()
     {
-        return inertia('Indicators/Create');
+        return inertia('Indicators/Indicators/Create');
     }
 
     public function store(Request $request)
@@ -28,23 +28,26 @@ class IndicatorController extends Controller
             'code' => 'required|string|size:4|unique:indicators,code',
             'description' => 'required|string',
             'is_percentage' => 'nullable|boolean',
+        ], [
+            'required' => 'O campo é obrigatório.',
+            'size' => 'O código deve ter exatamente :size caracteres.',
+            'unique' => 'Já existe um indicador com este código.',
         ]);
 
         Indicator::create([
             'code' => $data['code'],
             'description' => $data['description'],
-            'is_percentage' => ! empty($data['is_percentage']),
+            'is_percentage' => !empty($data['is_percentage']),
         ]);
 
-        // Invalidate indicators cache so UI reflects new entries
         Cache::forget('indicators_map');
 
-        return to_route('indicators.index')->with('success', 'Indicador criado com sucesso!');
+        return to_route('indicators.indicators.index')->with('success', 'Indicador criado com sucesso!');
     }
 
     public function edit(Indicator $indicator)
     {
-        return inertia('Indicators/Edit', ['indicator' => $indicator]);
+        return inertia('Indicators/Indicators/Edit', ['indicator' => $indicator]);
     }
 
     public function update(Request $request, Indicator $indicator)
@@ -52,25 +55,25 @@ class IndicatorController extends Controller
         $data = $request->validate([
             'description' => 'required|string',
             'is_percentage' => 'nullable|boolean',
+        ], [
+            'required' => 'O campo é obrigatório.',
         ]);
 
         $indicator->update([
             'description' => $data['description'],
-            'is_percentage' => ! empty($data['is_percentage']),
+            'is_percentage' => !empty($data['is_percentage']),
         ]);
 
-        // Invalidate indicators cache after update
         Cache::forget('indicators_map');
 
-        return to_route('indicators.index')->with('success', 'Indicador atualizado com sucesso!');
+        return to_route('indicators.indicators.index')->with('success', 'Indicador atualizado com sucesso!');
     }
 
     public function destroy(Indicator $indicator)
     {
-        // If delete is enabled in the future, ensure cache is invalidated
         // $indicator->delete();
         Cache::forget('indicators_map');
 
-        return to_route('indicators.index')->with('error', 'Função desabilitada!');
+        return to_route('indicators.indicators.index')->with('error', 'Função desabilitada!');
     }
 }
