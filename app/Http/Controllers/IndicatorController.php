@@ -37,7 +37,7 @@ class IndicatorController extends Controller
         Indicator::create([
             'code' => $data['code'],
             'description' => $data['description'],
-            'is_percentage' => !empty($data['is_percentage']),
+            'is_percentage' => ! empty($data['is_percentage']),
         ]);
 
         Cache::forget('indicators_map');
@@ -61,7 +61,7 @@ class IndicatorController extends Controller
 
         $indicator->update([
             'description' => $data['description'],
-            'is_percentage' => !empty($data['is_percentage']),
+            'is_percentage' => ! empty($data['is_percentage']),
         ]);
 
         Cache::forget('indicators_map');

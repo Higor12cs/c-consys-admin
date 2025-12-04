@@ -14,7 +14,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WhatsAppController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', fn() => inertia('Auth/Login'))->middleware('guest')->name('login');
+Route::get('/login', fn () => inertia('Auth/Login'))->middleware('guest')->name('login');
 Route::post('/login', LoginController::class)->middleware('guest')->name('login.attempt');
 Route::post('/logout', LogoutController::class)->middleware('auth')->name('logout');
 
@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tasks/{task}/finish', [TaskController::class, 'finish'])->name('tasks.finish');
 
     Route::prefix('/indicators')->as('indicators.')->group(function () {
-        Route::get('/', fn() => inertia('Indicators/Index'))->name('index');
+        Route::get('/', fn () => inertia('Indicators/Index'))->name('index');
 
         Route::get('/indicators', [IndicatorController::class, 'index'])->name('indicators.index');
         Route::get('/indicators/create', [IndicatorController::class, 'create'])->name('indicators.create');

@@ -26,7 +26,7 @@ class ImageController extends Controller
         $chartTypes = ChartType::options();
         $destinationTypes = DestinationType::options();
         $indicators = Indicator::orderBy('code')->get()->map(function ($i) {
-            return ['value' => $i->code, 'label' => $i->code . ' - ' . $i->description];
+            return ['value' => $i->code, 'label' => $i->code.' - '.$i->description];
         })->toArray();
 
         return inertia(
@@ -83,7 +83,7 @@ class ImageController extends Controller
             'is_active' => $data['is_active'],
         ]);
 
-        if (!empty($data['schedules'])) {
+        if (! empty($data['schedules'])) {
             foreach ($data['schedules'] as $schedule) {
                 $image->schedules()->attach($schedule['schedule_id'], [
                     'sun' => $schedule['sun'] ?? false,
@@ -109,7 +109,7 @@ class ImageController extends Controller
         $chartTypes = ChartType::options();
         $destinationTypes = DestinationType::options();
         $indicators = Indicator::orderBy('code')->get()->map(function ($i) {
-            return ['value' => $i->code, 'label' => $i->code . ' - ' . $i->description];
+            return ['value' => $i->code, 'label' => $i->code.' - '.$i->description];
         })->toArray();
 
         return inertia(
@@ -168,7 +168,7 @@ class ImageController extends Controller
 
         $image->schedules()->detach();
 
-        if (!empty($data['schedules'])) {
+        if (! empty($data['schedules'])) {
             foreach ($data['schedules'] as $schedule) {
                 $image->schedules()->attach($schedule['schedule_id'], [
                     'sun' => $schedule['sun'] ?? false,
