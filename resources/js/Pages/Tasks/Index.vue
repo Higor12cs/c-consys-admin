@@ -18,7 +18,7 @@ const showCreateModal = ref(false);
 const showEditModal = ref(false);
 const taskToEdit = ref(null);
 const draggedTask = ref(null);
-const showFilters = ref(true);
+const showFilters = ref(false);
 
 const executedByFilter = ref(props.filters.e || "");
 const supervisedByFilter = ref(props.filters.s || "");
@@ -141,7 +141,7 @@ const updateTaskStatus = (taskId, newStatus) => {
 
         <div class="card mb-3">
             <div
-                class="card-header d-flex justify-content-between align-items-center"
+                class="d-flex justify-content-between align-items-center p-3"
                 style="cursor: pointer"
                 @click="showFilters = !showFilters"
             >
@@ -156,7 +156,8 @@ const updateTaskStatus = (taskId, newStatus) => {
                     }"
                 />
             </div>
-            <div v-show="showFilters" class="card-body">
+
+            <div v-show="showFilters" class="px-3 pb-1">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <Select

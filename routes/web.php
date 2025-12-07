@@ -34,31 +34,31 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
     Route::post('/tasks/{task}/finish', [TaskController::class, 'finish'])->name('tasks.finish');
 
-    // Route::get('/', fn () => inertia('Indicators/Index'))->name('index');
+    Route::prefix('/indicators')->group(function () {
+        Route::get('/indicators', [IndicatorController::class, 'index'])->name('indicators.index');
+        Route::get('/indicators/create', [IndicatorController::class, 'create'])->name('indicators.create');
+        Route::post('/indicators', [IndicatorController::class, 'store'])->name('indicators.store');
+        Route::get('/indicators/{indicator}/edit', [IndicatorController::class, 'edit'])->name('indicators.edit');
+        Route::put('/indicators/{indicator}', [IndicatorController::class, 'update'])->name('indicators.update');
+        Route::delete('/indicators/{indicator}', [IndicatorController::class, 'destroy'])->name('indicators.destroy');
 
-    Route::get('/indicators', [IndicatorController::class, 'index'])->name('indicators.index');
-    Route::get('/indicators/create', [IndicatorController::class, 'create'])->name('indicators.create');
-    Route::post('/indicators', [IndicatorController::class, 'store'])->name('indicators.store');
-    Route::get('/indicators/{indicator}/edit', [IndicatorController::class, 'edit'])->name('indicators.edit');
-    Route::put('/indicators/{indicator}', [IndicatorController::class, 'update'])->name('indicators.update');
-    Route::delete('/indicators/{indicator}', [IndicatorController::class, 'destroy'])->name('indicators.destroy');
+        Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+        Route::get('/schedules/create', [ScheduleController::class, 'create'])->name('schedules.create');
+        Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules.store');
+        Route::get('/schedules/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
+        Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedules.update');
+        Route::post('/schedules/{schedule}/resend', [ScheduleController::class, 'resend'])->name('schedules.resend');
 
-    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
-    Route::get('/schedules/create', [ScheduleController::class, 'create'])->name('schedules.create');
-    Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules.store');
-    Route::get('/schedules/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
-    Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedules.update');
-    Route::post('/schedules/{schedule}/resend', [ScheduleController::class, 'resend'])->name('schedules.resend');
+        Route::get('/images', [ImageController::class, 'index'])->name('images.index');
+        Route::get('/images/create', [ImageController::class, 'create'])->name('images.create');
+        Route::post('/images', [ImageController::class, 'store'])->name('images.store');
+        Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
+        Route::put('/images/{image}', [ImageController::class, 'update'])->name('images.update');
+        Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 
-    Route::get('/images', [ImageController::class, 'index'])->name('images.index');
-    Route::get('/images/create', [ImageController::class, 'create'])->name('images.create');
-    Route::post('/images', [ImageController::class, 'store'])->name('images.store');
-    Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
-    Route::put('/images/{image}', [ImageController::class, 'update'])->name('images.update');
-    Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
-
-    Route::get('/images/{image}/preview', [TestImageController::class, 'preview'])->name('images.preview');
-    Route::get('/images/{image}/send', [TestImageController::class, 'send'])->name('images.send');
+        Route::get('/images/{image}/preview', [TestImageController::class, 'preview'])->name('images.preview');
+        Route::get('/images/{image}/send', [TestImageController::class, 'send'])->name('images.send');
+    });
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');

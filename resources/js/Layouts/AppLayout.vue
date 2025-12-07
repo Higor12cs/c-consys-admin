@@ -60,14 +60,22 @@ const navLinks = [
 const isActiveLink = (routeName) => {
     const routePrefix = routeName.split(".")[0];
     const componentParts = page.component.split("/");
-    const lastPart = componentParts[componentParts.length - 2]?.toLowerCase() || componentParts[0].toLowerCase();
-    
+    const lastPart =
+        componentParts[componentParts.length - 2]?.toLowerCase() ||
+        componentParts[0].toLowerCase();
+
     return lastPart === routePrefix.toLowerCase();
 };
 
-if (page.component.startsWith("Indicators")) {
-    indicatorsExpanded.value = true;
-}
+const hasActiveSubmenu = (submenu) => {
+    return submenu?.some((sublink) => isActiveLink(sublink.route));
+};
+
+navLinks.forEach((link) => {
+    if (link.submenu && hasActiveSubmenu(link.submenu)) {
+        indicatorsExpanded.value = true;
+    }
+});
 
 const closeSidebar = (event) => {
     if (window.innerWidth < 768) {
@@ -104,7 +112,7 @@ onUnmounted(() => {
                         <button
                             class="nav-link"
                             :class="{
-                                active: page.component.startsWith('Indicators'),
+                                active: hasActiveSubmenu(link.submenu),
                             }"
                             @click="indicatorsExpanded = !indicatorsExpanded"
                         >
