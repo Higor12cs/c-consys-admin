@@ -42,7 +42,7 @@ class IndicatorController extends Controller
 
         Cache::forget('indicators_map');
 
-        return to_route('indicators.indicators.index')->with('success', 'Indicador criado com sucesso!');
+        return to_route('indicators.index')->with('success', 'Indicador criado com sucesso!');
     }
 
     public function edit(Indicator $indicator)
@@ -66,7 +66,7 @@ class IndicatorController extends Controller
 
         Cache::forget('indicators_map');
 
-        return to_route('indicators.indicators.index')->with('success', 'Indicador atualizado com sucesso!');
+        return to_route('indicators.index')->with('success', 'Indicador atualizado com sucesso!');
     }
 
     public function destroy(Indicator $indicator)
@@ -74,6 +74,6 @@ class IndicatorController extends Controller
         // $indicator->delete();
         Cache::forget('indicators_map');
 
-        return to_route('indicators.indicators.index')->with('error', 'Função desabilitada!');
+        return to_route('indicators.index')->with('error', 'Função desabilitada!');
     }
 }

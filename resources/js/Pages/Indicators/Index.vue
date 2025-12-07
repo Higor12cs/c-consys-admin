@@ -15,7 +15,7 @@ import { User, Calendar, Image } from "lucide-vue-next";
         <div class="row g-4">
             <div class="col-12 col-md-6 col-lg-4">
                 <MenuLink
-                    :href="route('indicators.indicators.index')"
+                    :href="route('indicators.index')"
                     :title="'Indicadores'"
                     :description="'Gerencie os indicadores cadastrados.'"
                     :icon="User"
@@ -24,7 +24,7 @@ import { User, Calendar, Image } from "lucide-vue-next";
             </div>
             <div class="col-12 col-md-6 col-lg-4">
                 <MenuLink
-                    :href="route('indicators.schedules.index')"
+                    :href="route('schedules.index')"
                     :title="'Agendamentos'"
                     :description="'Gerencie os horários de envio das imagens.'"
                     :icon="Calendar"
@@ -33,7 +33,7 @@ import { User, Calendar, Image } from "lucide-vue-next";
             </div>
             <div class="col-12 col-md-6 col-lg-4">
                 <MenuLink
-                    :href="route('indicators.images.index')"
+                    :href="route('images.index')"
                     :title="'Imagens'"
                     :description="'Gerencie as imagens enviadas pelo WhatsApp.'"
                     :icon="Image"

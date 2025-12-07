@@ -19,7 +19,7 @@ const errors = ref({});
 const handleSubmit = (formData) => {
     processing.value = true;
     errors.value = {};
-    router.post(route("indicators.images.store"), formData, {
+    router.post(route("images.store"), formData, {
         onSuccess: () => {
             processing.value = false;
         },
@@ -36,7 +36,7 @@ const handleSubmit = (formData) => {
     <AppLayout>
         <div class="d-flex justify-content-between mb-3">
             <h1 class="h4">Nova Imagem</h1>
-            <Link :href="route('indicators.images.index')" class="btn btn-secondary">
+            <Link :href="route('images.index')" class="btn btn-secondary">
                 <ArrowLeft :size="18" class="me-1" />Voltar
             </Link>
         </div>

@@ -106,6 +106,7 @@ samp {
 .sidebar-nav .nav-link {
     display: flex;
     align-items: center;
+    width: 100%;
     padding: 0.625rem 1.25rem;
     color: #a0a0a0;
     text-decoration: none;
@@ -121,7 +122,6 @@ samp {
 
 .sidebar-nav .nav-link.active {
     color: #ffffff;
-    font-weight: 500;
     background-color: #2a2a2a;
 }
 
@@ -131,6 +131,32 @@ samp {
     margin-right: 0.75rem;
     color: inherit;
     flex-shrink: 0;
+}
+
+.sidebar-nav .nav-link button {
+    background: none;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.sidebar-nav .nav-link {
+    position: relative;
+}
+
+.sidebar-nav .nav-link .submenu-arrow {
+    position: relative;
+    margin-left: auto;
+    left: 16px;
+    transition: transform 0.2s ease;
+}
+
+.sidebar-nav .nav-link .submenu-arrow.expanded {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    overflow: hidden;
 }
 
 .topbar {

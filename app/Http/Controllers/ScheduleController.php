@@ -34,7 +34,7 @@ class ScheduleController extends Controller
 
         Schedule::create($validated);
 
-        return to_route('indicators.schedules.index')->with('success', 'Agendamento criado com sucesso!');
+        return to_route('schedules.index')->with('success', 'Agendamento criado com sucesso!');
     }
 
     public function edit(Schedule $schedule)
@@ -58,7 +58,7 @@ class ScheduleController extends Controller
 
         $schedule->update($validated);
 
-        return to_route('indicators.schedules.index')->with('success', 'Agendamento atualizado com sucesso!');
+        return to_route('schedules.index')->with('success', 'Agendamento atualizado com sucesso!');
     }
 
     public function resend(Schedule $schedule)
@@ -78,6 +78,6 @@ class ScheduleController extends Controller
             GenerateImageJob::dispatch($image, $schedule->id, $destinations);
         }
 
-        return to_route('indicators.schedules.index')->with('success', 'Reenvio de imagens agendado com sucesso!');
+        return to_route('schedules.index')->with('success', 'Reenvio de imagens agendado com sucesso!');
     }
 }

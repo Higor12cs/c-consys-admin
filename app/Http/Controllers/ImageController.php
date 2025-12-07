@@ -97,7 +97,7 @@ class ImageController extends Controller
             }
         }
 
-        return redirect()->route('indicators.images.index')->with('success', 'Imagem criada com sucesso!');
+        return redirect()->route('images.index')->with('success', 'Imagem criada com sucesso!');
     }
 
     public function edit(Image $image)
@@ -182,13 +182,13 @@ class ImageController extends Controller
             }
         }
 
-        return redirect()->route('indicators.images.index')->with('success', 'Imagem atualizada com sucesso!');
+        return redirect()->route('images.index')->with('success', 'Imagem atualizada com sucesso!');
     }
 
     public function destroy(Image $image)
     {
         $image->delete();
 
-        return redirect()->route('indicators.images.index')->with('success', 'Imagem removida com sucesso!');
+        return redirect()->route('images.index')->with('success', 'Imagem removida com sucesso!');
     }
 }

@@ -73,7 +73,7 @@ const openDeleteModal = (customerId) => {
 const confirmDelete = () => {
     if (imageToDelete.value) {
         router.delete(
-            route("indicators.images.destroy", {
+            route("images.destroy", {
                 image: imageToDelete.value,
             })
         );
@@ -86,7 +86,7 @@ onMounted(() => {
         if (e.target.classList.contains("edit-button")) {
             const imageId = e.target.getAttribute("data-id");
             router.visit(
-                route("indicators.images.edit", {
+                route("images.edit", {
                     image: imageId,
                 })
             );
@@ -107,7 +107,7 @@ onMounted(() => {
             <h1 class="h4">Imagens</h1>
             <div class="d-flex gap-2">
                 <Link
-                    :href="route('indicators.images.create')"
+                    :href="route('images.create')"
                     class="btn btn-primary"
                 >
                     <Plus :size="18" class="me-1" />

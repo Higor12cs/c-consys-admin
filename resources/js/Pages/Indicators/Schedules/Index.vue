@@ -32,7 +32,7 @@ const handleConfirmResend = () => {
     if (!selectedScheduleId.value) return;
     confirmLoading.value = true;
     router.post(
-        route("indicators.schedules.resend", {
+        route("schedules.resend", {
             schedule: selectedScheduleId.value,
         })
     );
@@ -70,7 +70,7 @@ onMounted(() => {
         if (e.target.classList.contains("edit-button")) {
             const scheduleId = e.target.getAttribute("data-id");
             router.visit(
-                route("indicators.schedules.edit", { schedule: scheduleId })
+                route("schedules.edit", { schedule: scheduleId })
             );
         }
 
@@ -89,7 +89,7 @@ onMounted(() => {
             <h1 class="h4">Agendamentos</h1>
             <div class="d-flex gap-2">
                 <Link
-                    :href="route('indicators.schedules.create')"
+                    :href="route('schedules.create')"
                     class="btn btn-primary"
                 >
                     <Plus :size="18" class="me-1" />

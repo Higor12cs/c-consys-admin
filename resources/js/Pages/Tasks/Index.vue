@@ -18,7 +18,7 @@ const showCreateModal = ref(false);
 const showEditModal = ref(false);
 const taskToEdit = ref(null);
 const draggedTask = ref(null);
-const showFilters = ref(false);
+const showFilters = ref(true);
 
 const executedByFilter = ref(props.filters.e || "");
 const supervisedByFilter = ref(props.filters.s || "");

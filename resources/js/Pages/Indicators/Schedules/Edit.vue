@@ -17,7 +17,7 @@ const props = defineProps({
         <div class="d-flex justify-content-between mb-3">
             <h1 class="h4">Editar Agendamento</h1>
             <Link
-                :href="route('indicators.schedules.index')"
+                :href="route('schedules.index')"
                 class="btn btn-secondary"
             >
                 <ArrowLeft :size="18" class="me-1" />
@@ -30,7 +30,7 @@ const props = defineProps({
             <div class="card-body">
                 <Form
                     :action="
-                        route('indicators.schedules.update', {
+                        route('schedules.update', {
                             schedule: props.schedule.id,
                         })
                     "

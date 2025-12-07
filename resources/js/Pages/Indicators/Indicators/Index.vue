@@ -26,7 +26,7 @@ const openDeleteModal = (id) => {
 const confirmDelete = () => {
     if (indicatorToDelete.value) {
         router.delete(
-            route("indicators.indicators.destroy", {
+            route("indicators.destroy", {
                 indicator: indicatorToDelete.value,
             })
         );
@@ -63,7 +63,7 @@ onMounted(() => {
         if (el.classList.contains("edit-btn")) {
             const id = el.getAttribute("data-id");
             router.visit(
-                route("indicators.indicators.edit", { indicator: id })
+                route("indicators.edit", { indicator: id })
             );
         }
 
@@ -82,7 +82,7 @@ onMounted(() => {
             <h1 class="h4">Indicadores</h1>
             <div class="d-flex gap-2">
                 <Link
-                    :href="route('indicators.indicators.create')"
+                    :href="route('indicators.create')"
                     class="btn btn-primary"
                 >
                     <Plus :size="18" class="me-1" />

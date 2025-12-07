@@ -10,7 +10,7 @@ import { ArrowLeft, Save } from "lucide-vue-next";
         <div class="d-flex justify-content-between mb-3">
             <h1 class="h4">Novo Agendamento</h1>
             <Link
-                :href="route('indicators.schedules.index')"
+                :href="route('schedules.index')"
                 class="btn btn-secondary"
             >
                 <ArrowLeft :size="18" class="me-1" />
@@ -22,7 +22,7 @@ import { ArrowLeft, Save } from "lucide-vue-next";
             <div class="card-header">Novo Agendamento</div>
             <div class="card-body">
                 <Form
-                    :action="route('indicators.schedules.store')"
+                    :action="route('schedules.store')"
                     method="post"
                     #default="{ errors, processing }"
                 >
