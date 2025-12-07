@@ -37,7 +37,7 @@ const handleSubmit = (formData) => {
     <AppLayout>
         <div class="d-flex justify-content-between mb-3">
             <h1 class="h4">Editar Imagem</h1>
-            <Link :href="route('indicators.indicators.images.index')" class="btn btn-secondary">
+            <Link :href="route('indicators.images.index')" class="btn btn-secondary">
                 <ArrowLeft :size="18" class="me-1" />Voltar
             </Link>
         </div>
