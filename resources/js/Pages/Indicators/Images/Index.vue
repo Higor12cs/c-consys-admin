@@ -6,6 +6,7 @@ import { ArrowLeft, Plus } from "lucide-vue-next";
 import DataTable from "datatables.net-vue3";
 import DataTablesCore from "datatables.net-bs5";
 import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+import 'datatables.net-responsive';
 import { onMounted, ref } from "vue";
 
 DataTable.use(DataTablesCore);
@@ -17,7 +18,6 @@ const props = defineProps({
     },
 });
 
-const tableRef = ref(null);
 const showDeleteModal = ref(false);
 const imageToDelete = ref(null);
 
@@ -58,6 +58,7 @@ const columns = [
         render: (data) => {
             return `
                 <button class="btn btn-sm btn-secondary edit-button" data-id="${data.id}">Editar</button>
+                <button class="btn btn-sm btn-secondary preview-button" data-id="${data.id}">Visualizar</button>
                 <button class="btn btn-sm btn-danger delete-button" data-id="${data.id}">Excluir</button>
             `;
         },
@@ -92,6 +93,15 @@ onMounted(() => {
             );
         }
 
+        if (e.target.classList.contains("preview-button")) {
+            const imageId = e.target.getAttribute("data-id");
+            router.visit(
+                route("images.preview", {
+                    image: imageId,
+                })
+            );
+        }
+
         if (e.target.classList.contains("delete-button")) {
             const imageId = e.target.getAttribute("data-id");
             openDeleteModal(imageId);
@@ -106,10 +116,7 @@ onMounted(() => {
         <div class="d-flex justify-content-between mb-3">
             <h1 class="h4">Imagens</h1>
             <div class="d-flex gap-2">
-                <Link
-                    :href="route('images.create')"
-                    class="btn btn-primary"
-                >
+                <Link :href="route('images.create')" class="btn btn-primary">
                     <Plus :size="18" class="me-1" />
                     Novo
                 </Link>
@@ -131,9 +138,16 @@ onMounted(() => {
                     :data="images"
                     :columns="columns"
                     :options="{
+                        pageLength: 50,
+                        lengthMenu: [10, 25, 50, 100],
                         language: {
                             url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/pt-BR.json',
                         },
+                        responsive: true,
+                        columnDefs: [
+                            { responsivePriority: 1, targets: 0 },
+                            { responsivePriority: 2, targets: -1 },
+                        ],
                     }"
                     class="table table-bordered table-striped table-hover"
                 />
