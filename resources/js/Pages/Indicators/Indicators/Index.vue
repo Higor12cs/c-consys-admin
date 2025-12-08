@@ -62,9 +62,7 @@ onMounted(() => {
         const el = e.target;
         if (el.classList.contains("edit-btn")) {
             const id = el.getAttribute("data-id");
-            router.visit(
-                route("indicators.edit", { indicator: id })
-            );
+            router.visit(route("indicators.edit", { indicator: id }));
         }
 
         if (el.classList.contains("delete-btn")) {
@@ -80,22 +78,10 @@ onMounted(() => {
     <AppLayout>
         <div class="d-flex justify-content-between mb-3">
             <h1 class="h4">Indicadores</h1>
-            <div class="d-flex gap-2">
-                <Link
-                    :href="route('indicators.create')"
-                    class="btn btn-primary"
-                >
-                    <Plus :size="18" class="me-1" />
-                    Novo
-                </Link>
-                <Link
-                    :href="route('indicators.index')"
-                    class="btn btn-secondary"
-                >
-                    <ArrowLeft :size="18" class="me-1" />
-                    Voltar
-                </Link>
-            </div>
+            <Link :href="route('indicators.create')" class="btn btn-primary">
+                <Plus :size="18" class="me-1" />
+                Novo
+            </Link>
         </div>
 
         <div class="card">
