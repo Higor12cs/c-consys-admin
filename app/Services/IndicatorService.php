@@ -86,6 +86,30 @@ class IndicatorService
             ->get();
     }
 
+    public function getTop10ReceivablesData(int $customerId, string $company)
+    {
+        $vencidos = IndicatorMonthly::where('customer_id', $customerId)
+            ->where('company', $company)
+            ->where('indicator', 'TOP_10_VENCIDOS')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        $aVencer = IndicatorMonthly::where('customer_id', $customerId)
+            ->where('company', $company)
+            ->where('indicator', 'TOP_10_A_VENCER')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        if ($vencidos->isEmpty() && $aVencer->isEmpty()) {
+            return null;
+        }
+
+        return (object) [
+            'vencidos' => $vencidos,
+            'a_vencer' => $aVencer,
+        ];
+    }
+
     public function getIndicatorsForImage(array $indicators, int $customerId, string $company)
     {
         $result = [];
@@ -122,6 +146,16 @@ class IndicatorService
             } elseif ($chart['type'] === 'monthly_sales') {
                 $data = $this->getMonthlySalesData($customerId, $company);
                 if ($data->isNotEmpty()) {
+                    $result[] = [
+                        'type' => $chart['type'],
+                        'row' => $chart['row'],
+                        'col' => $chart['col'],
+                        'data' => $data,
+                    ];
+                }
+            } elseif ($chart['type'] === 'top_10_receivables') {
+                $data = $this->getTop10ReceivablesData($customerId, $company);
+                if ($data !== null) {
                     $result[] = [
                         'type' => $chart['type'],
                         'row' => $chart['row'],

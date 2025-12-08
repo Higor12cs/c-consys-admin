@@ -38,10 +38,7 @@
                         rotation: -90,
                         formatter: function(value) {
                             if (value === 0 || value === null) return '';
-                            return new Intl.NumberFormat('pt-BR', {
-                                notation: 'compact',
-                                compactDisplay: 'short'
-                            }).format(value);
+                            return formatAbbreviatedNumber(value);
                         },
                         color: '#ffffff',
                         font: {
@@ -119,11 +116,13 @@
                         display: false,
                         position: 'right',
                         suggestedMin: function(context) {
-                            const min = Math.min(...context.chart.data.datasets[1].data.filter(v => v !== null));
+                            const min = Math.min(...context.chart.data.datasets[1].data.filter(v =>
+                                v !== null));
                             return min * -10;
                         },
                         suggestedMax: function(context) {
-                            const max = Math.max(...context.chart.data.datasets[1].data.filter(v => v !== null));
+                            const max = Math.max(...context.chart.data.datasets[1].data.filter(v =>
+                                v !== null));
                             return max * -10;
                         },
                         grid: {

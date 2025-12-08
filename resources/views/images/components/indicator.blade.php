@@ -60,7 +60,7 @@
     }
 @endphp
 
-<div class="{{ $bgColor }} text-white shadow p-4 h-full flex flex-col">
+<div class="{{ $bgColor }} text-white shadow p-4 flex flex-col mb-auto h-[170px]">
     {{-- Nome --}}
     <p class="flex items-center gap-2 mb-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -76,7 +76,7 @@
     </p>
 
     {{-- Dados --}}
-    <div class="flex-1 flex flex-col justify-between min-h-[90px]">
+    <div class="flex-1 flex flex-col justify-between">
         @if ($data->direction === 0)
             <div class="flex justify-center items-center h-full">
                 <p class="text-4xl font-semibold leading-tight">

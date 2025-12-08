@@ -29,17 +29,17 @@
     }
 
     if (!function_exists('formatPercentage')) {
-        function formatPercentage($number)
+        function formatPercentage($number, $decimals = 2)
         {
             $negative = $number < 0;
             $abs = abs($number);
 
             if ($abs >= 100) {
-                $formatted = number_format($abs, 0, ',', '.') . '%';
+                $formatted = number_format($abs, $decimals, ',', '.') . '%';
             } elseif ($abs >= 10) {
-                $formatted = number_format($abs, 1, ',', '.') . '%';
+                $formatted = number_format($abs, $decimals, ',', '.') . '%';
             } else {
-                $formatted = number_format($abs, 2, ',', '.') . '%';
+                $formatted = number_format($abs, $decimals, ',', '.') . '%';
             }
 
             return $negative ? '-' . $formatted : $formatted;
@@ -68,6 +68,36 @@
 
     {{-- @vite(['resources/css/image.css']) --}}
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <script>
+        // Função global para formatar números de forma abreviada
+        function formatAbbreviatedNumber(number) {
+            const negative = number < 0;
+            const abs = Math.abs(number);
+            let formatted;
+
+            if (abs < 1000) {
+                formatted = Math.floor(abs).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            } else if (abs < 10000) {
+                formatted = (abs / 1000).toFixed(2).replace('.', ',');
+                formatted = formatted.replace(/0+$/, '').replace(/,$/, '');
+                formatted += 'K';
+            } else if (abs < 100000) {
+                formatted = (abs / 1000).toFixed(1).replace('.', ',');
+                formatted = formatted.replace(/0+$/, '').replace(/,$/, '');
+                formatted += 'K';
+            } else if (abs < 1000000) {
+                formatted = Math.floor(abs / 1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                formatted += 'K';
+            } else {
+                formatted = (abs / 1000000).toFixed(2).replace('.', ',');
+                formatted = formatted.replace(/0+$/, '').replace(/,$/, '');
+                formatted += 'M';
+            }
+
+            return negative ? '-' + formatted : formatted;
+        }
+    </script>
 </head>
 
 <body class="font-sans antialiased bg-white" style="font-family: 'Inter', sans-serif;">
@@ -97,6 +127,10 @@
                                         @include('images.charts.monthly-sales', ['data' => $cell['data']])
                                     @elseif ($cell['chart_type'] === 'delinquency')
                                         @include('images.charts.delinquency', ['data' => $cell['data']])
+                                    @elseif ($cell['chart_type'] === 'top_10_receivables')
+                                        @include('images.charts.top-10-receivables', [
+                                            'data' => $cell['data'],
+                                        ])
                                     @endif
                                 </div>
                             @endif

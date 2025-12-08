@@ -57,10 +57,7 @@
                         rotation: -90,
                         formatter: function(value) {
                             if (value === 0) return '';
-                            return new Intl.NumberFormat('pt-BR', {
-                                notation: 'compact',
-                                compactDisplay: 'short'
-                            }).format(value);
+                            return formatAbbreviatedNumber(value);
                         },
                         color: '#ffffff',
                         font: {
@@ -83,10 +80,7 @@
                         rotation: -90,
                         formatter: function(value) {
                             if (value === 0) return '';
-                            return new Intl.NumberFormat('pt-BR', {
-                                notation: 'compact',
-                                compactDisplay: 'short'
-                            }).format(value);
+                            return formatAbbreviatedNumber(value);
                         },
                         color: '#ffffff',
                         font: {
@@ -114,10 +108,7 @@
                         align: 'top',
                         formatter: function(value) {
                             if (value === null || value === 0) return '';
-                            return new Intl.NumberFormat('pt-BR', {
-                                notation: 'compact',
-                                compactDisplay: 'short'
-                            }).format(value);
+                            return formatAbbreviatedNumber(value);
                         },
                         color: '#000000',
                         backgroundColor: '#FCD34D',

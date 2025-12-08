@@ -1,0 +1,67 @@
+<div class="w-full">
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <div class="bg-orange-800 text-white px-3 py-2 mb-1 flex items-center">
+                <span class="text-sm font-bold uppercase">TOP 10 VENCIDOS</span>
+                <span class="ml-auto">📋</span>
+            </div>
+            <table class="w-full text-xs border-collapse table-fixed">
+                <thead>
+                    <tr class="bg-orange-800 text-white">
+                        <th class="text-left py-1 px-2 font-bold uppercase">Cliente</th>
+                        <th class="text-right py-1 px-2 font-bold w-20">R$</th>
+                        <th class="text-right py-1 px-2 font-bold w-12">%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data->vencidos as $item)
+                        <tr class="bg-orange-50 border-b border-orange-100">
+                            <td class="py-1 px-2 text-gray-900 font-medium uppercase truncate"
+                                title="{{ $item->description }}">
+                                {{ $item->description }}
+                            </td>
+                            <td class="py-1 px-2 text-right font-semibold text-gray-900 w-20">
+                                {{ formatAbbreviatedNumber($item->actual) }}
+                            </td>
+                            <td class="py-1 px-2 text-right text-gray-800 w-12">
+                                {{ formatPercentage($item->target, 0) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <div class="bg-green-800 text-white px-3 py-2 mb-1 flex items-center">
+                <span class="text-sm font-bold uppercase">TOP 10 NÃO VENCIDOS</span>
+                <span class="ml-auto">📋</span>
+            </div>
+            <table class="w-full text-xs border-collapse table-fixed">
+                <thead>
+                    <tr class="bg-green-800 text-white">
+                        <th class="text-left py-1 px-2 font-bold uppercase">Cliente</th>
+                        <th class="text-right py-1 px-2 font-bold w-20">R$</th>
+                        <th class="text-right py-1 px-2 font-bold w-12">%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data->a_vencer as $item)
+                        <tr class="bg-green-50 border-b border-green-100">
+                            <td class="py-1 px-2 text-gray-900 font-medium uppercase truncate"
+                                title="{{ $item->description }}">
+                                {{ $item->description }}
+                            </td>
+                            <td class="py-1 px-2 text-right font-semibold text-gray-900 w-20">
+                                {{ formatAbbreviatedNumber($item->actual) }}
+                            </td>
+                            <td class="py-1 px-2 text-right text-gray-800 w-12">
+                                {{ formatPercentage($item->target, 0) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

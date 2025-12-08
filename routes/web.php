@@ -14,7 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WhatsAppController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', fn() => inertia('Auth/Login'))->middleware('guest')->name('login');
+Route::get('/login', fn () => inertia('Auth/Login'))->middleware('guest')->name('login');
 Route::post('/login', LoginController::class)->middleware('guest')->name('login.attempt');
 Route::post('/logout', LogoutController::class)->middleware('auth')->name('logout');
 
