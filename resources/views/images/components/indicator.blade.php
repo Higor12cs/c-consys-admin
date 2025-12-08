@@ -60,7 +60,7 @@
     }
 @endphp
 
-<div class="{{ $bgColor }} text-white shadow p-4 flex flex-col mb-auto h-[170px]">
+<div class="{{ $bgColor }} text-white shadow p-4 flex flex-col min-h-[170px]">
     {{-- Nome --}}
     <p class="flex items-center gap-2 mb-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -70,7 +70,7 @@
             <path
                 d="M7 11.207a.5.5 0 0 1 .146-.353l2-2a.5.5 0 0 1 .708 0l3.292 3.292a.5.5 0 0 0 .708 0l4.292-4.292a.5.5 0 0 1 .854.353V16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1z" />
         </svg>
-        <span class="font-semibold uppercase">
+        <span class="font-semibold truncate uppercase">
             {{ $indicatorDescription }}
         </span>
     </p>
@@ -78,7 +78,7 @@
     {{-- Dados --}}
     <div class="flex-1 flex flex-col justify-between">
         @if ($data->direction === 0)
-            <div class="flex justify-center items-center h-full">
+            <div class="flex-1 flex justify-center items-center">
                 <p class="text-4xl font-semibold leading-tight">
                     @if ($isPercentage)
                         {{ formatPercentage($data->actual) }}
