@@ -118,22 +118,3 @@
         }
     });
 </script>
-
-<style>
-    .chart-container {
-        @apply bg-white rounded-lg shadow-md overflow-hidden;
-    }
-
-    .chart-header {
-        @apply bg-gray-900 text-white px-4 py-3;
-    }
-
-    .chart-title {
-        @apply text-sm font-bold uppercase tracking-wide;
-    }
-
-    .chart-content {
-        @apply relative p-4;
-        min-height: 300px;
-    }
-</style>

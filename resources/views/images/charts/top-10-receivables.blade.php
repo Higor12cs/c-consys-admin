@@ -22,18 +22,33 @@
                 </thead>
                 <tbody>
                     @foreach ($data->vencidos as $item)
-                        <tr class="bg-orange-50 border-b border-orange-100">
-                            <td class="py-1 px-2 text-gray-900 font-medium uppercase truncate"
-                                title="{{ $item->description }}">
-                                {{ $item->description }}
-                            </td>
-                            <td class="py-1 px-2 text-right font-semibold text-gray-900 w-20">
-                                {{ formatAbbreviatedNumber($item->actual) }}
-                            </td>
-                            <td class="py-1 px-2 text-right text-gray-800 w-12">
-                                {{ formatPercentage($item->target, 0) }}
-                            </td>
-                        </tr>
+                        @if ($loop->first)
+                            <tr class="bg-orange-200 border-b border-orange-200">
+                                <td class="py-1 px-2 text-gray-900 font-bold uppercase truncate"
+                                    title="{{ $item->description }}">
+                                    {{ $item->description }}
+                                </td>
+                                <td class="py-1 px-2 text-right font-semibold text-gray-900 w-20">
+                                    {{ formatAbbreviatedNumber($item->actual) }}
+                                </td>
+                                <td class="py-1 px-2 text-right text-gray-800 w-12">
+                                    {{ formatPercentage($item->target, 0) }}
+                                </td>
+                            </tr>
+                        @else
+                            <tr class="bg-orange-50 border-b border-orange-100">
+                                <td class="py-1 px-2 text-gray-900 font-medium uppercase truncate"
+                                    title="{{ $item->description }}">
+                                    {{ $item->description }}
+                                </td>
+                                <td class="py-1 px-2 text-right font-semibold text-gray-900 w-20">
+                                    {{ formatAbbreviatedNumber($item->actual) }}
+                                </td>
+                                <td class="py-1 px-2 text-right text-gray-800 w-12">
+                                    {{ formatPercentage($item->target, 0) }}
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>
@@ -61,18 +76,33 @@
                 </thead>
                 <tbody>
                     @foreach ($data->a_vencer as $item)
-                        <tr class="bg-green-50 border-b border-green-100">
-                            <td class="py-1 px-2 text-gray-900 font-medium uppercase truncate"
-                                title="{{ $item->description }}">
-                                {{ $item->description }}
-                            </td>
-                            <td class="py-1 px-2 text-right font-semibold text-gray-900 w-20">
-                                {{ formatAbbreviatedNumber($item->actual) }}
-                            </td>
-                            <td class="py-1 px-2 text-right text-gray-800 w-12">
-                                {{ formatPercentage($item->target, 0) }}
-                            </td>
-                        </tr>
+                        @if ($loop->first)
+                            <tr class="bg-green-200 border-b border-green-200">
+                                <td class="py-1 px-2 text-gray-900 font-bold uppercase truncate"
+                                    title="{{ $item->description }}">
+                                    {{ $item->description }}
+                                </td>
+                                <td class="py-1 px-2 text-right font-semibold text-gray-900 w-20">
+                                    {{ formatAbbreviatedNumber($item->actual) }}
+                                </td>
+                                <td class="py-1 px-2 text-right text-gray-800 w-12">
+                                    {{ formatPercentage($item->target, 0) }}
+                                </td>
+                            </tr>
+                        @else
+                            <tr class="bg-green-50 border-b border-green-100">
+                                <td class="py-1 px-2 text-gray-900 font-medium uppercase truncate"
+                                    title="{{ $item->description }}">
+                                    {{ $item->description }}
+                                </td>
+                                <td class="py-1 px-2 text-right font-semibold text-gray-900 w-20">
+                                    {{ formatAbbreviatedNumber($item->actual) }}
+                                </td>
+                                <td class="py-1 px-2 text-right text-gray-800 w-12">
+                                    {{ formatPercentage($item->target, 0) }}
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

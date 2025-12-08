@@ -65,12 +65,38 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-
-    {{-- @vite(['resources/css/image.css']) --}}
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <style>
+        .chart-container {
+            background: #000000;
+            padding: 20px;
+            border-radius: 0px;
+            height: 340px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .chart-content {
+            flex: 1;
+            position: relative;
+            min-height: 250px;
+        }
+    </style>
+
     <script>
-        // Função global para formatar números de forma abreviada
         function formatAbbreviatedNumber(number) {
             const negative = number < 0;
             const abs = Math.abs(number);
@@ -141,11 +167,6 @@
                 @endforeach
             </div>
         </div>
-
-        {{-- <div class="flex justify-center items-center bg-gray-900 text-gray-100 p-4">
-            <span class="text-xs uppercase">Imagem gerada em:
-                {{ \Illuminate\Support\Carbon::now()->locale('pt_BR')->isoFormat('dddd, DD/MM/YYYY HH:mm') }}</span>
-        </div> --}}
     </div>
 </body>
 

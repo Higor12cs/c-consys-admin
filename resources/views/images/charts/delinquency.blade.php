@@ -156,32 +156,3 @@
         });
     });
 </script>
-
-<style>
-    .chart-container {
-        background: #000000;
-        padding: 20px;
-        border-radius: 0px;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .chart-header {
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .chart-title {
-        font-size: 18px;
-        font-weight: bold;
-        color: #ffffff;
-        margin: 0;
-    }
-
-    .chart-content {
-        flex: 1;
-        position: relative;
-        min-height: 250px;
-    }
-</style>
