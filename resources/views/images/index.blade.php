@@ -29,7 +29,7 @@
     }
 
     if (!function_exists('formatPercentage')) {
-        function formatPercentage($number, $decimals = 2)
+        function formatPercentage($number, $decimals = 1)
         {
             $negative = $number < 0;
             $abs = abs($number);
