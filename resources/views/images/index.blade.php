@@ -74,6 +74,7 @@
     <div class="flex flex-col m-4">
         <div class="flex justify-between items-center flex-shrink-0 bg-gray-900 text-gray-100 p-4 mb-4">
             <div class="text-lg font-semibold">
+                <img src="{{ asset('images/ConsysLogo.png') }}" class="h-6 mb-1 inline-block mr-2">
                 {{ $customer->name }} - {{ $image->company }} | {{ $image->name }}
             </div>
             <div class="text-lg font-semibold uppercase">
@@ -105,10 +106,10 @@
             </div>
         </div>
 
-        <div class="flex justify-center items-center bg-gray-900 text-gray-100 p-4">
+        {{-- <div class="flex justify-center items-center bg-gray-900 text-gray-100 p-4">
             <span class="text-xs uppercase">Imagem gerada em:
                 {{ \Illuminate\Support\Carbon::now()->locale('pt_BR')->isoFormat('dddd, DD/MM/YYYY HH:mm') }}</span>
-        </div>
+        </div> --}}
     </div>
 </body>
 

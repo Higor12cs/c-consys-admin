@@ -17,6 +17,7 @@ class IndicatorMonthly extends Model
         'year',
         'month',
         'indicator',
+        'description',
         'target',
         'actual',
     ];

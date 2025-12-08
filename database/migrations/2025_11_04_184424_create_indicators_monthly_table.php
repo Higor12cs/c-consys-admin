@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('year');
             $table->integer('month');
             $table->string('indicator');
+            $table->text('description')->nullable();
             $table->decimal('target', 15, 4)->default(0);
             $table->decimal('actual', 15, 4)->default(0);
             $table->timestamps();

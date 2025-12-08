@@ -39,6 +39,7 @@ class ProcessMonthlySync implements ShouldQueue
                         'year' => $record['year'],
                         'month' => $record['month'],
                         'indicator' => $record['indicator'],
+                        'description' => $record['description'] ?? null,
                         'target' => $record['target'],
                         'actual' => $record['actual'],
                     ]);

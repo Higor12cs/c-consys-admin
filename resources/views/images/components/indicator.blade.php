@@ -1,6 +1,6 @@
 @php
     if ($data->direction === 0) {
-        $bgColor = 'bg-gray-400';
+        $bgColor = 'bg-gray-500';
     } else {
         $threshold = abs($data->target * 0.05);
 
@@ -70,18 +70,16 @@
             <path
                 d="M7 11.207a.5.5 0 0 1 .146-.353l2-2a.5.5 0 0 1 .708 0l3.292 3.292a.5.5 0 0 0 .708 0l4.292-4.292a.5.5 0 0 1 .854.353V16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1z" />
         </svg>
-        <span class="font-semibold uppercase truncate">
+        <span class="font-semibold uppercase">
             {{ $indicatorDescription }}
         </span>
     </p>
 
     {{-- Dados --}}
-    <div class="flex-1 flex flex-col justify-between">
-        <div class="grid grid-cols-3 gap-2">
-
-            {{-- Valor --}}
-            <div class="flex justify-center items-center col-span-2">
-                <p class="text-4xl font-semibold leading-tight mb-3">
+    <div class="flex-1 flex flex-col justify-between min-h-[90px]">
+        @if ($data->direction === 0)
+            <div class="flex justify-center items-center h-full">
+                <p class="text-4xl font-semibold leading-tight">
                     @if ($isPercentage)
                         {{ formatPercentage($data->actual) }}
                     @else
@@ -89,30 +87,44 @@
                     @endif
                 </p>
             </div>
+        @else
+            <div class="grid grid-cols-3 gap-2">
 
-            {{-- Meta e Diferença --}}
-            <div class="space-y-2">
-                <div>
-                    <p class="text-xs opacity-85 mb-1">Meta</p>
-                    <p class="font-semibold">
+                {{-- Valor --}}
+                <div class="flex justify-center items-center col-span-2">
+                    <p class="text-4xl font-semibold leading-tight mb-3">
                         @if ($isPercentage)
-                            {{ formatPercentage($data->target) }}
+                            {{ formatPercentage($data->actual) }}
                         @else
-                            {{ formatAbbreviatedNumber($data->target) }}
+                            {{ formatAbbreviatedNumber($data->actual) }}
                         @endif
                     </p>
                 </div>
-                <div>
-                    <p class="text-xs opacity-85 mb-1">Dif. R$</p>
-                    <p class="font-semibold">
-                        @if ($isPercentage)
-                            {{ formatPercentage($displayDiff) }}
-                        @else
-                            {{ formatAbbreviatedNumber($displayDiff) }}
-                        @endif
-                    </p>
+
+                {{-- Meta e Diferença --}}
+                <div class="space-y-2">
+                    <div>
+                        <p class="text-xs opacity-85 mb-1">Meta</p>
+                        <p class="font-semibold">
+                            @if ($isPercentage)
+                                {{ formatPercentage($data->target) }}
+                            @else
+                                {{ formatAbbreviatedNumber($data->target) }}
+                            @endif
+                        </p>
+                    </div>
+                    <div>
+                        <p class="text-xs opacity-85 mb-1">Dif.</p>
+                        <p class="font-semibold">
+                            @if ($isPercentage)
+                                {{ formatPercentage($displayDiff) }}
+                            @else
+                                {{ formatAbbreviatedNumber($displayDiff) }}
+                            @endif
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 </div>
