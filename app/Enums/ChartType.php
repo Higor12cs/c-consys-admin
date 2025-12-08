@@ -9,12 +9,15 @@ enum ChartType: string
 
     case TOP_10_RECEIVABLES = 'top_10_receivables';
 
+    case BALANCE = 'balance';
+
     public function label(): string
     {
         return match ($this) {
             self::SALES_MONTHLY => 'Vendas Mensais',
             self::DELINQUENCY => 'Inadimplência',
             self::TOP_10_RECEIVABLES => 'Top 10 CR',
+            self::BALANCE => 'Saldos',
         };
     }
 

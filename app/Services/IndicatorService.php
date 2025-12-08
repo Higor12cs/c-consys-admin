@@ -110,6 +110,18 @@ class IndicatorService
         ];
     }
 
+    public function getMonthlyBalanceData(int $customerId, string $company)
+    {
+        return IndicatorMonthly::where('customer_id', $customerId)
+            ->where('company', $company)
+            ->where('indicator', 'SALDOS')
+            ->orderBy('date', 'desc')
+            ->limit(12)
+            ->get()
+            ->sortBy(fn ($item) => sprintf('%04d-%02d', $item->year, $item->month))
+            ->values();
+    }
+
     public function getIndicatorsForImage(array $indicators, int $customerId, string $company)
     {
         $result = [];
@@ -156,6 +168,16 @@ class IndicatorService
             } elseif ($chart['type'] === 'top_10_receivables') {
                 $data = $this->getTop10ReceivablesData($customerId, $company);
                 if ($data !== null) {
+                    $result[] = [
+                        'type' => $chart['type'],
+                        'row' => $chart['row'],
+                        'col' => $chart['col'],
+                        'data' => $data,
+                    ];
+                }
+            } elseif ($chart['type'] === 'balance') {
+                $data = $this->getMonthlyBalanceData($customerId, $company);
+                if ($data->isNotEmpty()) {
                     $result[] = [
                         'type' => $chart['type'],
                         'row' => $chart['row'],

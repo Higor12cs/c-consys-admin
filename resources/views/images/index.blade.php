@@ -131,6 +131,8 @@
                                         @include('images.charts.top-10-receivables', [
                                             'data' => $cell['data'],
                                         ])
+                                    @elseif ($cell['chart_type'] === 'balance')
+                                        @include('images.charts.balance', ['data' => $cell['data']])
                                     @endif
                                 </div>
                             @endif
