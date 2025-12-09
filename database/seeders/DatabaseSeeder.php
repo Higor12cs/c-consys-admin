@@ -13,12 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
-
         $this->call([IndicatorSeeder::class, ScheduleSeeder::class]);
     }
 }

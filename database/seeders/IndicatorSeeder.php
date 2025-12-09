@@ -10,6 +10,8 @@ class IndicatorSeeder extends Seeder
     public function run()
     {
         $percentageIndicators = [
+            '0110',
+            '0111',
             '0119',
             '0120',
             '0121',
