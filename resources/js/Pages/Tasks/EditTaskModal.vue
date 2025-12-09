@@ -115,7 +115,7 @@ const finishTask = () => {
                 tabindex="-1"
                 @click.self="close"
             >
-                <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Editar Tarefa</h5>
@@ -345,7 +345,7 @@ const finishTask = () => {
 
 <style scoped>
 .modal-body {
-    max-height: 60vh;
+    max-height: 80vh;
     overflow-y: auto;
 }
 
