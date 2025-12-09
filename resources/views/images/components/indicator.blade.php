@@ -26,7 +26,12 @@
     }
 
     $displayDiff = abs($data->actual - $data->target);
-    $variationPercentage = $data->target != 0 ? (($data->actual - $data->target) / $data->target) * 100 : 0;
+    $variationPercentage = 0;
+    if ($data->direction === 1 && $data->target != 0) {
+        $variationPercentage = (($data->actual - $data->target) / $data->target) * 100;
+    } elseif ($data->direction === -1 && $data->target != 0) {
+        $variationPercentage = (($data->target - $data->actual) / $data->target) * 100;
+    }
 @endphp
 
 @php
