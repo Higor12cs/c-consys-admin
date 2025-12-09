@@ -39,7 +39,7 @@ class GenerateImageJob implements ShouldQueue
 
             $browsershot = Browsershot::html($html)
                 ->windowSize(
-                    str_starts_with($this->image->company, 'V') ? 650 : 1300,
+                    str_starts_with($this->image->company, 'V') ? 900 : 1500,
                     0
                 )
                 ->deviceScaleFactor(2)
