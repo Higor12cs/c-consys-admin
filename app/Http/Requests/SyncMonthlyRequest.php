@@ -16,7 +16,7 @@ class SyncMonthlyRequest extends FormRequest
         return [
             'records' => 'required|array|min:1',
             'records.*.date' => 'required|date_format:Y-m-d H:i:s',
-            'records.*.company' => 'required|integer',
+            'records.*.company' => 'required|string|max:255',
             'records.*.year' => 'required|integer',
             'records.*.month' => 'required|integer',
             'records.*.indicator' => 'required|string|max:255',
