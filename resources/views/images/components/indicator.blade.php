@@ -26,6 +26,7 @@
     }
 
     $displayDiff = abs($data->actual - $data->target);
+    $variationPercentage = $data->target != 0 ? (($data->actual - $data->target) / $data->target) * 100 : 0;
 @endphp
 
 @php
@@ -88,10 +89,10 @@
                 </p>
             </div>
         @else
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-5 gap-2">
 
                 {{-- Valor --}}
-                <div class="flex justify-center items-center col-span-2">
+                <div class="flex justify-center items-center col-span-3">
                     <p class="text-4xl font-semibold leading-tight mb-3">
                         @if ($isPercentage)
                             {{ formatPercentage($data->actual) }}
@@ -104,7 +105,7 @@
                 {{-- Meta e Diferença --}}
                 <div class="space-y-2">
                     <div>
-                        <p class="text-xs opacity-85 mb-1">Meta</p>
+                        <p class="text-xs opacity-85">Meta</p>
                         <p class="font-semibold">
                             @if ($isPercentage)
                                 {{ formatPercentage($data->target) }}
@@ -114,12 +115,18 @@
                         </p>
                     </div>
                     <div>
-                        <p class="text-xs opacity-85 mb-1">Dif.</p>
-                        <p class="font-semibold">
+                        <p class="text-xs opacity-85">Dif.</p>
+                        <p class="font-semibold flex items-center gap-2">
                             @if ($isPercentage)
                                 {{ formatPercentage($displayDiff) }}
+                                <span class="text-xs opacity-75">
+                                    [{{ formatPercentage($variationPercentage, 0) }}]
+                                </span>
                             @else
                                 {{ formatAbbreviatedNumber($displayDiff) }}
+                                <span class="text-xs opacity-75">
+                                    [{{ formatPercentage($variationPercentage, 0) }}]
+                                </span>
                             @endif
                         </p>
                     </div>
