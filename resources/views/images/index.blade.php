@@ -141,16 +141,11 @@
         <div class="flex-1 overflow-hidden flex flex-col mb-4">
             <div class="flex-1 overflow-auto space-y-4">
                 @php
-                    $isSingleRow = count($grid) === 1;
-                    $nonNullIndicators = $isSingleRow
-                        ? collect($grid[0])
-                            ->filter(fn($cell) => $cell['type'] === 'indicator' && isset($cell['data']))
-                            ->count()
-                        : 0;
+                    $startsWithV = str_starts_with($image->company, 'V');
                 @endphp
 
                 @foreach ($grid as $row)
-                    <div class="grid {{ $isSingleRow ? "grid-cols-{$nonNullIndicators}" : 'grid-cols-4' }} gap-4">
+                    <div class="grid {{ $startsWithV ? 'grid-cols-2' : 'grid-cols-4' }} gap-4">
                         @foreach ($row as $cell)
                             @if ($cell['type'] === 'indicator' && isset($cell['data']))
                                 <div>
