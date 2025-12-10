@@ -11,6 +11,6 @@ Artisan::command('view:clear', function () {
     }
 
     $this->info('Compiled views cleared!');
-})->everyTenMinutes();
+})->everyThirtyMinutes();
 
-Schedule::command('images:check-schedules')->everyTenMinutes();
+Schedule::command('images:check-schedules')->everyThirtyMinutes();
