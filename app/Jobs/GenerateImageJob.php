@@ -17,7 +17,8 @@ class GenerateImageJob implements ShouldQueue
     public function __construct(
         public Image $image,
         public int $scheduleId,
-        public array $destinations
+        public array $destinations,
+        public bool $isResend = false,
     ) {}
 
     public function handle(IndicatorService $indicatorService): void

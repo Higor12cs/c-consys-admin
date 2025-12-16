@@ -203,7 +203,7 @@ class ImageController extends Controller
             return to_route('images.index')->with('error', 'A imagem deve possuir ao menos um destinatário para reenvio.');
         }
 
-        GenerateImageJob::dispatch($image, $image->schedules->first()->id, $image->destinations);
+        GenerateImageJob::dispatch($image, $image->schedules->first()->id, $image->destinations, true);
 
         return to_route('images.index')->with('success', 'Reenvio da imagem agendado com sucesso!');
     }

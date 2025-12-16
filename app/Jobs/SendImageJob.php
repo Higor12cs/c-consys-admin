@@ -18,7 +18,8 @@ class SendImageJob implements ShouldQueue
         public string $base64,
         public string $extension,
         public int $imageId,
-        public int $scheduleId
+        public int $scheduleId,
+        public bool $isResend = false,
     ) {}
 
     public function handle(WhatsAppService $whatsAppService): void
@@ -30,12 +31,21 @@ class SendImageJob implements ShouldQueue
                 $this->extension
             );
 
+            if($this->isResend) {
+                Log::info('Resending image via WhatsApp', [
+                    'image_id' => $this->imageId,
+                    'schedule_id' => $this->scheduleId,
+                    'contact_id' => $this->contactId,
+                    'status' => $result['success'] ? 'success' : 'failed',
+                ]);
+            }
+
             if ($result['success']) {
                 ScheduleExecutionLog::create([
                     'image_id' => $this->imageId,
                     'schedule_id' => $this->scheduleId,
                     'execution_date' => now()->toDateTimeString(),
-                    'status' => 'success',
+                    'status' => $this->isResend ? 'resent' : 'success',
                 ]);
             } else {
                 ScheduleExecutionLog::create([
