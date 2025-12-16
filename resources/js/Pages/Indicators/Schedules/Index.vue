@@ -99,9 +99,16 @@ onMounted(() => {
                     :data="schedules"
                     :columns="columns"
                     :options="{
+                        pageLength: 100,
+                        lengthMenu: [10, 25, 50, 100],
                         language: {
                             url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/pt-BR.json',
                         },
+                        responsive: true,
+                        columnDefs: [
+                            { responsivePriority: 1, targets: 0 },
+                            { responsivePriority: 2, targets: -1 },
+                        ],
                     }"
                     class="table table-bordered table-striped table-hover"
                 />

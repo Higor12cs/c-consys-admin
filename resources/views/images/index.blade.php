@@ -129,12 +129,14 @@
 <body class="font-sans antialiased bg-white" style="font-family: 'Inter', sans-serif;">
     <div class="flex flex-col m-4">
         <div class="flex justify-between items-center flex-shrink-0 bg-gray-900 text-gray-100 p-4 mb-4">
-            <div class="text-lg font-semibold">
-                <img src="{{ asset('images/ConsysLogo.png') }}" class="h-6 mb-1 inline-block mr-2">
-                {{ $customer->name }} - {{ $image->company }} | {{ $image->name }}
-            </div>
             <div class="text-lg font-semibold uppercase">
-                {{ \Illuminate\Support\Carbon::parse($lastUpdatedAt)->locale('pt_BR')->isoFormat('dddd, DD/MM/YYYY HH:mm') }}
+                <img src="{{ asset('images/ConsysLogo.png') }}" class="h-6 mb-1 inline-block mr-2">
+                <span>
+                    {{ \Illuminate\Support\Carbon::parse($lastUpdatedAt)->locale('pt_BR')->isoFormat('dddd, DD/MM/YYYY HH:mm') }}
+                </span>
+            </div>
+            <div class="text-lg font-semibold">
+                {{ $customer->name }} - {{ $image->company }} | {{ $image->name }}
             </div>
         </div>
 
