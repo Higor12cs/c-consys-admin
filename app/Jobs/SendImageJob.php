@@ -31,7 +31,7 @@ class SendImageJob implements ShouldQueue
                 $this->extension
             );
 
-            if($this->isResend) {
+            if ($this->isResend) {
                 Log::info('Resending image via WhatsApp', [
                     'image_id' => $this->imageId,
                     'schedule_id' => $this->scheduleId,

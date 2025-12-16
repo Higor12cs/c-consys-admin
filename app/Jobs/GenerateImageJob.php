@@ -62,7 +62,8 @@ class GenerateImageJob implements ShouldQueue
                     $base64,
                     '.png',
                     $this->image->id,
-                    $this->scheduleId
+                    $this->scheduleId,
+                    $this->isResend
                 )->delay(now()->addSeconds($destination['delay'] ?? 0));
             }
 
