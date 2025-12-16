@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\ChartType;
 use App\Enums\DestinationType;
+use App\Jobs\GenerateImageJob;
 use App\Models\Customer;
 use App\Models\Image;
 use App\Models\Indicator;
@@ -14,7 +15,7 @@ class ImageController extends Controller
 {
     public function index()
     {
-        $images = Image::with('customer')->get();
+        $images = Image::with(['customer', 'schedules'])->get();
 
         return inertia('Indicators/Images/Index', compact('images'));
     }
@@ -190,5 +191,20 @@ class ImageController extends Controller
         $image->delete();
 
         return redirect()->route('images.index')->with('success', 'Imagem removida com sucesso!');
+    }
+
+    public function resend(Image $image)
+    {
+        if ($image->schedules->isEmpty()) {
+            return to_route('images.index')->with('error', 'A imagem deve possuir ao menos um agendamento para reenvio.');
+        }
+
+        if (empty($image->destinations)) {
+            return to_route('images.index')->with('error', 'A imagem deve possuir ao menos um destinatário para reenvio.');
+        }
+
+        GenerateImageJob::dispatch($image, $image->schedules->first()->id, $image->destinations);
+
+        return to_route('images.index')->with('success', 'Reenvio da imagem agendado com sucesso!');
     }
 }

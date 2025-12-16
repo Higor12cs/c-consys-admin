@@ -8,6 +8,7 @@ const props = defineProps({
     error: { type: String, default: null },
     placeholder: { type: String, default: "" },
     class: { type: String, default: "" },
+    disabled: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -27,6 +28,7 @@ const value = computed({
             :placeholder="placeholder"
             class="form-control"
             :class="{ 'is-invalid': error }"
+            :disabled="disabled"
         />
         <div v-if="error" class="invalid-feedback">{{ error }}</div>
     </div>

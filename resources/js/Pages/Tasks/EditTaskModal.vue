@@ -319,7 +319,7 @@ const finishTask = () => {
                                     class="btn btn-primary"
                                     :disabled="form.processing"
                                 >
-                                    Salvar
+                                    Atualizar
                                 </button>
                             </div>
                         </form>

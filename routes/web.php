@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
         Route::put('/images/{image}', [ImageController::class, 'update'])->name('images.update');
         Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
+        Route::post('/images/{image}/resend', [ImageController::class, 'resend'])->name('images.resend');
 
         Route::get('/images/{image}/preview', [TestImageController::class, 'preview'])->name('images.preview');
         Route::get('/images/{image}/send', [TestImageController::class, 'send'])->name('images.send');

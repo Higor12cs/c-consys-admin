@@ -25,6 +25,8 @@ class Task extends Model
         'due_date' => 'date:Y-m-d',
         'completed_at' => 'date:Y-m-d',
         'finished_at' => 'date:Y-m-d',
+        'created_at' => 'date:Y-m-d H:i:s',
+        'updated_at' => 'date:Y-m-d H:i:s',
     ];
 
     public function customer(): BelongsTo

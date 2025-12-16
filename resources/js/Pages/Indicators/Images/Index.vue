@@ -18,24 +18,21 @@ const props = defineProps({
     },
 });
 
-const showDeleteModal = ref(false);
-const imageToDelete = ref(null);
-
 const columns = [
-    { data: "customer.name", title: "Cliente", width: "20%" },
-    { data: "name", title: "Nome", width: "15%" },
-    { data: "company", title: "Empresa", width: "15%" },
+    { data: "customer.name", title: "Cliente", width: "10%" },
+    { data: "company", title: "Empresa", width: "10%" },
+    { data: "name", title: "Imagem", width: "10%" },
     {
-        data: "indicators",
-        title: "Indicadores",
+        data: "schedules",
+        title: "Agendamentos",
         render: (data) => {
             return data && data.length > 0 ? data.length : "0";
         },
         width: "10%",
     },
     {
-        data: "charts",
-        title: "Gráficos",
+        data: "destinations",
+        title: "Destinatários",
         render: (data) => {
             return data && data.length > 0 ? data.length : "0";
         },
@@ -59,16 +56,27 @@ const columns = [
             return `
                 <button class="btn btn-sm btn-secondary edit-button" data-id="${data.id}">Editar</button>
                 <button class="btn btn-sm btn-secondary preview-button" data-id="${data.id}">Visualizar</button>
+                <button class="btn btn-sm btn-primary resend-button" data-id="${data.id}">Reenviar</button>
                 <button class="btn btn-sm btn-danger delete-button" data-id="${data.id}">Excluir</button>
             `;
         },
-        width: "20%",
+        width: "30%",
     },
 ];
+
+const showDeleteModal = ref(false);
+const showResendModal = ref(false);
+const imageToResend = ref(null);
+const imageToDelete = ref(null);
 
 const openDeleteModal = (customerId) => {
     imageToDelete.value = customerId;
     showDeleteModal.value = true;
+};
+
+const openResendModal = (imageId) => {
+    imageToResend.value = imageId;
+    showResendModal.value = true;
 };
 
 const confirmDelete = () => {
@@ -79,6 +87,17 @@ const confirmDelete = () => {
             })
         );
         imageToDelete.value = null;
+    }
+};
+
+const confirmResend = () => {
+    if (imageToResend.value) {
+        router.post(
+            route("images.resend", {
+                image: imageToResend.value,
+            })
+        );
+        imageToResend.value = null;
     }
 };
 
@@ -100,6 +119,11 @@ onMounted(() => {
                     image: imageId,
                 })
             );
+        }
+
+        if (e.target.classList.contains("resend-button")) {
+            const imageId = e.target.getAttribute("data-id");
+            openResendModal(imageId);
         }
 
         if (e.target.classList.contains("delete-button")) {
@@ -129,7 +153,7 @@ onMounted(() => {
                     :data="images"
                     :columns="columns"
                     :options="{
-                        pageLength: 50,
+                        pageLength: 100,
                         lengthMenu: [10, 25, 50, 100],
                         language: {
                             url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/pt-BR.json',
@@ -153,6 +177,16 @@ onMounted(() => {
             cancel-text="Cancelar"
             confirm-variant="danger"
             @confirm="confirmDelete"
+        />
+
+        <ConfirmationModal
+            v-model:show="showResendModal"
+            title="Reenviar Imagem"
+            message="Tem certeza que deseja reenviar esta imagem?"
+            confirm-text="Reenviar"
+            cancel-text="Cancelar"
+            confirm-variant="primary"
+            @confirm="confirmResend"
         />
     </AppLayout>
 </template>

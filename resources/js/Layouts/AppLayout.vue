@@ -102,7 +102,12 @@ onUnmounted(() => {
 <template>
     <div id="wrapper">
         <aside class="sidebar" :class="{ toggled: sidebarToggled }">
-            <Link :href="route('home.index')" class="sidebar-brand">
+            <Link :href="route('home.index')" class="sidebar-brand gap-2">
+                <img
+                    src="/public/images/ConsysLogo.png"
+                    alt="Consys Logo"
+                    style="height: 24px;"
+                />
                 <span>Consys</span>
             </Link>
 

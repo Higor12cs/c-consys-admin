@@ -14,3 +14,4 @@ Artisan::command('view:clear', function () {
 })->everyThirtyMinutes();
 
 Schedule::command('images:check-schedules')->everyThirtyMinutes();
+Schedule::command('model:prune')->daily();

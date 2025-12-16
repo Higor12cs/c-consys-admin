@@ -92,7 +92,7 @@ onMounted(() => {
                     :data="indicators"
                     :columns="columns"
                     :options="{
-                        pageLength: 50,
+                        pageLength: 100,
                         lengthMenu: [10, 25, 50, 100],
                         language: {
                             url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/pt-BR.json',
