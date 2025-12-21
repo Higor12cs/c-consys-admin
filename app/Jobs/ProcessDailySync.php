@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Customer;
 use App\Models\IndicatorDaily;
 use App\Models\SyncLog;
 use Illuminate\Bus\Queueable;
@@ -20,7 +21,8 @@ class ProcessDailySync implements ShouldQueue
         private int $customerId,
         private array $records,
         private int $syncLogId
-    ) {}
+    ) {
+    }
 
     public function handle(): void
     {
@@ -45,6 +47,10 @@ class ProcessDailySync implements ShouldQueue
                 }
 
                 $lastDate = collect($this->records)->max('date');
+
+                Customer::where('id', $this->customerId)->update([
+                    'last_synced_at' => $lastDate,
+                ]);
 
                 $syncLog->update([
                     'status' => 'success',

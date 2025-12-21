@@ -19,8 +19,9 @@ const props = defineProps({
 const tableRef = ref(null);
 
 const columns = [
-    { data: "name", title: "Nome", width: "50%" },
+    { data: "name", title: "Nome", width: "40%" },
     { data: "external_id", title: "Código Externo", width: "20%" },
+    { data: "last_synced_at", title: "Última Sincronização", width: "15%" },
     {
         data: "is_active",
         title: "Ativo",
